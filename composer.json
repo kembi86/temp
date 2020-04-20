@@ -9,4 +9,9 @@
             "email": "mongdaovan86@yahoo.com"
         }
     ],
+    "autoload": {
+		"psr-4": {
+			"mongdao\\temp\\": ""
+		}
+	},
 }
