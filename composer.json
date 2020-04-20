@@ -1,0 +1,13 @@
+{
+    "name": "mongdao/temp",
+    "description": "Test cai gi do",
+    "type": "Yii2-extension",
+    "license": "GNU",
+    "authors": [
+        {
+            "name": "Mong Dao",
+            "email": "mongdaovan86@yahoo.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}
