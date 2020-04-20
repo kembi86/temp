@@ -13,5 +13,11 @@
 	"psr-4": {
 		"mongdao\\temp\\": ""
 	}
-    }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ]
 }
