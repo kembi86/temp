@@ -13,10 +13,5 @@
 		"modava\\temp\\": ""
 	}
     },
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://asset-packagist.org"
-        }
-    ]
+    "minimum-stability": "dev"
 }
