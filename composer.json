@@ -9,4 +9,5 @@
             "email": "mongdaovan86@yahoo.com"
         }
     ],
+    "minimum-stability": "stable",
 }
