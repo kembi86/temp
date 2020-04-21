@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\temp;
+namespace modava\temp;
 
 /**
  * affiliate module definition class
@@ -10,7 +10,7 @@ class Temp extends \yii\base\Module
     /**
      * {@inheritdoc}
      */
-    public $controllerNamespace = 'app\modules\temp\controllers';
+    public $controllerNamespace = 'modava\temp\controllers';
 
     /**
      * {@inheritdoc}
