@@ -1,17 +1,18 @@
 {
-    "name": "modava/temp",
-    "description": "Test cai gi do",
-    "type": "Yii2-extension",
-    "authors": [
-        {
-            "name": "Mong Dao",
-            "email": "mongdaovan86@yahoo.com"
-        }
-    ],
-    "autoload": {
-	"psr-4": {
-		"modava\\temp\\": ""
-	}
-    },
-    "minimum-stability": "dev"
+  "name": "modava/temp",
+  "description": "Test cai gi do",
+  "type": "Yii2-extension",
+  "authors": [
+    {
+      "name": "Mong Dao",
+      "email": "mongdaovan86@yahoo.com",
+      "homepage": "https://modava.com.vn/"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "modava\\temp\\": "src"
+    }
+  },
+  "minimum-stability": "dev"
 }
