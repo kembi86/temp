@@ -1,7 +1,16 @@
 {
   "name": "modava/temp",
   "description": "Test cai gi do",
+  "keywords": ["yii2", "helper"],
   "type": "Yii2-extension",
+  "license": "BSD-3-Clause",
+  "support": {
+    "issues": "",
+    "forum": "",
+    "wiki": "http://www.yiiframework.com/wiki/",
+    "irc": "",
+    "source": "https://github.com/modava/temp"
+  },
   "authors": [
     {
       "name": "Mong Dao",
