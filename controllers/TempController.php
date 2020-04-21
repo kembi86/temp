@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\temp\controllers;
+namespace modava\temp\controllers;
 
 use yii\web\Controller;
 
