@@ -1,2 +1,3 @@
 <?php
-echo 'views updated';
+echo 'views updated </br>';
+echo 'number one';
