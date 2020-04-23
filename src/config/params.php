@@ -7,5 +7,6 @@
  */
 
 return [
-
+    'tempName' => 'Temp',
+    'tempVersion' => '1.0'
 ];

@@ -7,6 +7,11 @@
  */
 $config = [
     'defaultRoute' => 'temp/index',
+    'components' => [
+        'errorHandler' => [
+            'class' => \modava\temp\components\MyErrorHandler::class,
+        ]
+    ],
     'params' => require __DIR__ . '/params.php',
 ];
 

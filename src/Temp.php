@@ -2,10 +2,13 @@
 
 namespace modava\temp;
 
+use yii\base\BootstrapInterface;
+use yii\web\Application;
+
 /**
- * affiliate module definition class
+ * Temp module definition class
  */
-class Temp extends \yii\base\Module
+class Temp extends \yii\base\Module implements BootstrapInterface
 {
     /**
      * {@inheritdoc}
@@ -24,5 +27,16 @@ class Temp extends \yii\base\Module
         \Yii::$app->setComponents([
 
         ]);
+
+        $handler = $this->get('errorHandler');
+        \Yii::$app->set('errorHandler', $handler);
+        $handler->register();
+    }
+
+    public function bootstrap($app)
+    {
+        if ($app instanceof Application) {
+            //Script here
+        }
     }
 }
