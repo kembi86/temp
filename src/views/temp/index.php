@@ -1,2 +1,2 @@
 <?php
-echo 'views';
+echo 'views updated';
