@@ -5,10 +5,7 @@
   "type": "Yii2-extension",
   "license": "BSD-3-Clause",
   "support": {
-    "issues": "",
-    "forum": "",
     "wiki": "http://www.yiiframework.com/wiki/",
-    "irc": "",
     "source": "https://github.com/modava/temp"
   },
   "authors": [
