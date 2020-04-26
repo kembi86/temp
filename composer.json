@@ -17,7 +17,7 @@
   ],
   "autoload": {
     "psr-4": {
-      "modava\\temp\\": "src"
+      "modava\\auth\\": "src"
     }
   },
   "minimum-stability": "dev"
