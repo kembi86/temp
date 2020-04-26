@@ -1,15 +1,15 @@
 <?php
 
-namespace modava\temp\assets;
+namespace modava\auth\assets;
 
 use yii\web\AssetBundle;
 
 /**
  * Main backend application asset bundle.
  */
-class TempAsset extends AssetBundle
+class AuthAsset extends AssetBundle
 {
-    public $sourcePath = '@tempweb';
+    public $sourcePath = '@authweb';
     public $css = [
         'dist/css/style.css',
     ];

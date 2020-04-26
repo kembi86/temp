@@ -1,12 +1,12 @@
 {
-  "name": "modava/temp",
+  "name": "modava/auth",
   "description": "Test cai gi do",
   "keywords": ["yii2", "helper"],
   "type": "Yii2-extension",
   "license": "BSD-3-Clause",
   "support": {
     "wiki": "http://www.yiiframework.com/wiki/",
-    "source": "https://github.com/modava/temp"
+    "source": "https://github.com/modava/auth"
   },
   "authors": [
     {

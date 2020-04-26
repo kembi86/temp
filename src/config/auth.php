@@ -6,14 +6,14 @@
  * Time: 4:00 PM
  */
 $config = [
-    'defaultRoute' => 'temp/index',
+    'defaultRoute' => 'auth/index',
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
     'aliases' => [
-        '@tempweb' => '@modava/temp/web',
+        '@authweb' => '@modava/auth/web',
     ],
     'components' => [
         'errorHandler' => [
-            'class' => \modava\temp\components\MyErrorHandler::class,
+            'class' => \modava\auth\components\MyErrorHandler::class,
         ],
     ],
     'params' => require __DIR__ . '/params.php',

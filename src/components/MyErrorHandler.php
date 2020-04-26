@@ -1,10 +1,10 @@
 <?php
 
-namespace modava\temp\components;
+namespace modava\auth\components;
 
 
 class MyErrorHandler extends \yii\web\ErrorHandler
 {
-    public $errorView = '@temp/views/temp/error.php';
+    public $errorView = '@auth/views/auth/error.php';
 
 }

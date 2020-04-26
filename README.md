@@ -10,13 +10,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist "modava/temp @dev"
+php composer.phar require --prefer-dist "modava/auth @dev"
 ```
 
 or add
 
 ```
-"modava/yii2-temp": "dev"
+"modava/auth": "dev"
 ```
 
 to the require section of your `composer.json` file.
@@ -30,8 +30,8 @@ Once the extension is installed, simply use it in your code by  :
 in file common/config/main.php add:
 ```php
 'modules' => [
-    'temp' => [
-        'class' => 'modava\temp\Temp',
+    'auth' => [
+        'class' => 'modava\auth\Auth',
     ]
 ]
 ```
@@ -40,5 +40,5 @@ Run
 -----
 
 ```php
-http://localhost/project/temp
+http://localhost/project/auth
 ```

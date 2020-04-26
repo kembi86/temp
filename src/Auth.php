@@ -1,6 +1,6 @@
 <?php
 
-namespace modava\temp;
+namespace modava\auth;
 
 use yii\base\BootstrapInterface;
 use Yii;
@@ -11,14 +11,14 @@ use yii\web\Application;
 use yii\web\Controller;
 
 /**
- * Temp module definition class
+ * Auth module definition class
  */
-class Temp extends Module implements BootstrapInterface
+class Auth extends Module implements BootstrapInterface
 {
     /**
      * {@inheritdoc}
      */
-    public $controllerNamespace = 'modava\temp\controllers';
+    public $controllerNamespace = 'modava\auth\controllers';
 
     /**
      * {@inheritdoc}
@@ -27,11 +27,11 @@ class Temp extends Module implements BootstrapInterface
     {
         // custom initialization code goes here
         parent::init();
-        Yii::configure($this, require(__DIR__ . '/config/temp.php'));
+        Yii::configure($this, require(__DIR__ . '/config/auth.php'));
         $handler = $this->get('errorHandler');
         Yii::$app->set('errorHandler', $handler);
         $handler->register();
-        $this->layout = 'temp';
+        $this->layout = 'auth';
         $this->registerTranslations();
     }
 
@@ -47,19 +47,19 @@ class Temp extends Module implements BootstrapInterface
 
     public function registerTranslations()
     {
-        Yii::$app->i18n->translations['temp/messages/*'] = [
+        Yii::$app->i18n->translations['auth/messages/*'] = [
             'class' => 'yii\i18n\PhpMessageSource',
             'sourceLanguage' => 'en',
-            'basePath' => '@modava/temp/messages',
+            'basePath' => '@modava/auth/messages',
             'fileMap' => [
-                'temp/messages/login' => 'login.php',
+                'auth/messages/login' => 'login.php',
             ],
         ];
     }
 
     public static function t($category, $message, $params = [], $language = null)
     {
-        return Yii::t('temp/messages/' . $category, $message, $params, $language);
+        return Yii::t('auth/messages/' . $category, $message, $params, $language);
     }
 
 }
