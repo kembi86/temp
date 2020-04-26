@@ -1,0 +1,13 @@
+<?php
+return [
+    'Welcome Back' => 'Welcome Back',
+    'Sign in to your account and enjoy unlimited perks' => 'Sign in to your account and enjoy unlimited perks',
+    'Keep me logged in' => 'Keep me logged in',
+    'Having trouble logging in' => 'Having trouble logging in',
+    'Login with facebook' => 'Login with facebook',
+    'Login with Twitter' => 'Login with Twitter',
+    'Do have an account yet' => 'Do have an account yet',
+    'Sign Up' => 'Sign Up',
+    'or' => 'or',
+    'Password' => 'Password'
+];

@@ -7,10 +7,14 @@
  */
 $config = [
     'defaultRoute' => 'temp/index',
+    'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
+    'aliases' => [
+        '@tempweb' => '@modava/temp/web',
+    ],
     'components' => [
         'errorHandler' => [
             'class' => \modava\temp\components\MyErrorHandler::class,
-        ]
+        ],
     ],
     'params' => require __DIR__ . '/params.php',
 ];
