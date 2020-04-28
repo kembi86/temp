@@ -22,27 +22,6 @@ class Auth extends Module implements BootstrapInterface
      */
     public $controllerNamespace = 'modava\auth\controllers';
 
-    public function behaviors()
-    {
-        return ArrayHelper::merge(parent::behaviors(), [
-            'access' => [
-                'class' => AccessControl::class,
-                'rules' => [
-                    [
-                        'actions' => ['login'],
-                        'allow' => true,
-                    ],
-                ]
-            ],
-//            'verbs' => [
-//                'class' => VerbFilter::className(),
-//                'actions' => [
-//                    'logout' => ['get'],
-//                ],
-//            ],
-        ]);
-    }
-
     /**
      * {@inheritdoc}
      */
@@ -55,6 +34,11 @@ class Auth extends Module implements BootstrapInterface
         Yii::$app->set('errorHandler', $handler);
         $handler->register();
         $this->layout = 'auth';
+        \Yii::$app->assetManager->bundles['yii\web\JqueryAsset'] = [
+            'js' => [
+                Yii::$app->getAssetManager()->publish('@authweb/vendors/jquery/dist/jquery.min.js')[1],
+            ]
+        ];
         $this->registerTranslations();
     }
 

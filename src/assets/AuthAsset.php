@@ -12,9 +12,9 @@ class AuthAsset extends AssetBundle
     public $sourcePath = '@authweb';
     public $css = [
         'dist/css/style.css',
+        'dist/css/auth.css',
     ];
     public $js = [
-        'vendors/jquery/dist/jquery.min.js',
         'vendors/popper.js/dist/umd/popper.min.js',
         'vendors/bootstrap/dist/js/bootstrap.min.js',
         'dist/js/jquery.slimscroll.js',
@@ -24,8 +24,11 @@ class AuthAsset extends AssetBundle
         'dist/js/init.js',
         'dist/js/login-data.js',
     ];
+    public $jsOptions = array(
+        'position' => \yii\web\View::POS_END
+    );
     public $depends = [
-//        'yii\web\YiiAsset',
-//        'yii\bootstrap\BootstrapAsset',
+        'yii\web\YiiAsset',
+        'yii\bootstrap\BootstrapAsset',
     ];
 }

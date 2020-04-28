@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 use yii\helpers\Url;
 
 $this->title = \modava\auth\Auth::t('auth', 'Login');
@@ -77,54 +78,66 @@ $this->title = \modava\auth\Auth::t('auth', 'Login');
                 <div class="col-xl-7 pa-0">
                     <div class="auth-form-wrap py-xl-0 py-50">
                         <div class="auth-form w-xxl-65 w-xl-75 w-sm-90 w-100 card pa-25 shadow-lg">
-                            <form>
-                                <h1 class="display-4 mb-10"><?= \modava\auth\Auth::t('auth', 'Welcome Back'); ?>
-                                    :)</h1>
-                                <p class="mb-30"><?= \modava\auth\Auth::t('auth', 'Sign in to your account and enjoy unlimited perks'); ?></p>
-                                <div class="form-group">
-                                    <input class="form-control" placeholder="Email" type="email">
-                                </div>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <input class="form-control"
-                                               placeholder="<?= \modava\auth\Auth::t('auth', 'Password'); ?>"
-                                               type="password">
-                                        <div class="input-group-append">
+                            <?php
+                            $form = ActiveForm::begin([
+                                'id' => 'login-form',
+                                'options' => [
+                                    'class' => 'form-horizontal form-simple',
+                                ],
+                            ]);
+                            ?>
+                            <h1 class="display-4 mb-10"><?= \modava\auth\Auth::t('auth', 'Welcome Back'); ?>
+                                :)</h1>
+                            <p class="mb-30"><?= \modava\auth\Auth::t('auth', 'Sign in to your account and enjoy unlimited perks'); ?></p>
+                            <div class="form-group">
+                                <?= $form->field($model, 'username')->textInput(['class' => 'form-control', 'autocomplete' => 'off', 'placeHolder' => 'Email'])->label(false) ?>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <?= $form->field($model, 'password')->passwordInput(['class' => 'form-control', 'autocomplete' => 'off', 'placeHolder' => \modava\auth\Auth::t('auth', 'Password')])->label(false) ?>
+                                    <div class="input-group-append">
                                                 <span class="input-group-text"><span class="feather-icon"><i
                                                                 data-feather="eye-off"></i></span></span>
-                                        </div>
                                     </div>
                                 </div>
-                                <div class="custom-control custom-checkbox mb-25">
-                                    <input class="custom-control-input" id="same-address" type="checkbox" checked>
+                            </div>
+                            <?php
+                            $checkboxTemplate = '<div class="custom-control custom-checkbox mb-25">
+                                    {input}
                                     <label class="custom-control-label font-14" for="same-address">
-                                        <?= \modava\auth\Auth::t('auth', 'Keep me logged in'); ?></label>
+                                    ' . \modava\auth\Auth::t('auth', 'Keep me logged in') . '
+                                        </label>
+                                    {error}{hint}</div>';
+
+                            echo $form->field($model, 'rememberMe', [
+                                'template' => $checkboxTemplate
+                            ])
+                                ->checkbox(['class' => 'custom-control-input', 'id' => 'same-address', 'checked' => false, 'label' => null]) ?>
+                            <button class="btn btn-success btn-block"
+                                    type="submit"><?= \modava\auth\Auth::t('auth', 'Login'); ?></button>
+                            <p class="font-14 text-center mt-15">
+                                <a href="<?= Url::toRoute(['/auth/auth/request-password-reset']); ?>">
+                                    <?= \modava\auth\Auth::t('auth', 'Having trouble logging in'); ?>?
+                                </a>
+                            </p>
+                            <div class="option-sep"><?= \modava\auth\Auth::t('auth', 'or'); ?></div>
+                            <div class="form-row">
+                                <div class="col-sm-6 mb-20">
+                                    <button class="btn btn-indigo btn-block btn-wth-icon"><span
+                                                class="icon-label"><i class="fa fa-facebook"></i> </span><span
+                                                class="btn-text"><?= \modava\auth\Auth::t('auth', 'Login with facebook'); ?></span>
+                                    </button>
                                 </div>
-                                <button class="btn btn-success btn-block"
-                                        type="submit"><?= \modava\auth\Auth::t('auth', 'Login'); ?></button>
-                                <p class="font-14 text-center mt-15">
-                                    <a href="<?= Url::toRoute(['/auth/auth/request-password-reset']); ?>">
-                                        <?= \modava\auth\Auth::t('auth', 'Having trouble logging in'); ?>?
-                                    </a>
-                                </p>
-                                <div class="option-sep"><?= \modava\auth\Auth::t('auth', 'or'); ?></div>
-                                <div class="form-row">
-                                    <div class="col-sm-6 mb-20">
-                                        <button class="btn btn-indigo btn-block btn-wth-icon"><span
-                                                    class="icon-label"><i class="fa fa-facebook"></i> </span><span
-                                                    class="btn-text"><?= \modava\auth\Auth::t('auth', 'Login with facebook'); ?></span>
-                                        </button>
-                                    </div>
-                                    <div class="col-sm-6 mb-20">
-                                        <button class="btn btn-primary btn-block btn-wth-icon"><span
-                                                    class="icon-label"><i class="fa fa-twitter"></i> </span><span
-                                                    class="btn-text"><?= \modava\auth\Auth::t('auth', 'Login with Twitter'); ?></span>
-                                        </button>
-                                    </div>
+                                <div class="col-sm-6 mb-20">
+                                    <button class="btn btn-primary btn-block btn-wth-icon"><span
+                                                class="icon-label"><i class="fa fa-twitter"></i> </span><span
+                                                class="btn-text"><?= \modava\auth\Auth::t('auth', 'Login with Twitter'); ?></span>
+                                    </button>
                                 </div>
-                                <p class="text-center"><?= \modava\auth\Auth::t('auth', 'Do have an account yet'); ?>?
-                                    <a href="#"><?= \modava\auth\Auth::t('auth', 'Sign Up'); ?></a></p>
-                            </form>
+                            </div>
+                            <p class="text-center"><?= \modava\auth\Auth::t('auth', 'Do have an account yet'); ?>?
+                                <a href="#"><?= \modava\auth\Auth::t('auth', 'Sign Up'); ?></a></p>
+                            <?php ActiveForm::end() ?>
                         </div>
                     </div>
                 </div>
