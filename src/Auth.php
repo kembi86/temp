@@ -6,6 +6,8 @@ use yii\base\BootstrapInterface;
 use Yii;
 use yii\base\Event;
 use \yii\base\Module;
+use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\Application;
 use yii\web\Controller;
@@ -19,6 +21,27 @@ class Auth extends Module implements BootstrapInterface
      * {@inheritdoc}
      */
     public $controllerNamespace = 'modava\auth\controllers';
+
+    public function behaviors()
+    {
+        return ArrayHelper::merge(parent::behaviors(), [
+            'access' => [
+                'class' => AccessControl::class,
+                'rules' => [
+                    [
+                        'actions' => ['login'],
+                        'allow' => true,
+                    ],
+                ]
+            ],
+//            'verbs' => [
+//                'class' => VerbFilter::className(),
+//                'actions' => [
+//                    'logout' => ['get'],
+//                ],
+//            ],
+        ]);
+    }
 
     /**
      * {@inheritdoc}
@@ -52,7 +75,7 @@ class Auth extends Module implements BootstrapInterface
             'sourceLanguage' => 'en',
             'basePath' => '@modava/auth/messages',
             'fileMap' => [
-                'auth/messages/login' => 'login.php',
+                'auth/messages/auth' => 'auth.php',
             ],
         ];
     }

@@ -6,6 +6,7 @@
 
 use yii\helpers\Html;
 
+$a = \modava\auth\assets\AuthAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>

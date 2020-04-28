@@ -9,5 +9,11 @@ return [
     'Do have an account yet' => 'Do have an account yet',
     'Sign Up' => 'Sign Up',
     'or' => 'or',
-    'Password' => 'Password'
+    'Password' => 'Password',
+    'Login' => 'Login',
+    'Please reset your password' => 'Please reset your password',
+    'Reset password' => 'Reset password',
+    'New password' => 'New password',
+    'Re-enter new password' => 'Re-enter new password',
+    'Back to login' => 'Back to login',
 ];
