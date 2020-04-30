@@ -38,53 +38,6 @@ class AuthController extends MyAuthController
         ]);
     }
 
-    public function actionSubmitLogin()
-    {
-        $model = new LoginForm();
-        if (!$model->load(Yii::$app->request->post()) || !$model->validate()) {
-            return die('Không validate');
-        }
-
-        $user = User::find()->andWhere(['OR', ['username' => $model->username], ['email' => $model->username]])->one();
-        $userLogin = User::find()->where(['or', ['username' => $model->username], ['email' => $model->username]])->andWhere(['status' => User::STATUS_ACTIVE])->joinWith(['userProfile'])->one();
-
-
-        if (!Yii::$app->user->login($userLogin, Time::SECONDS_IN_A_MONTH)) {
-            return [
-                'code' => 403,
-                'msg' => 'Đăng nhập thất bại'
-            ];
-        } else {
-            if (!Yii::$app->user->can('loginToBackend')) {
-                Yii::$app->user->logout();
-                return [
-                    'code' => 403,
-                    'msg' => 'Bạn không có quyền truy cập trang'
-                ];
-            }
-            $msg = 'Đăng nhập thành công.';
-        }
-        return [
-            'code' => 200,
-            'msg' => $msg,
-            'data' => [
-                'username' => $user->username,
-                'name' => $user->userProfile != null && $user->userProfile->fullname != null ? $user->userProfile->fullname : $user->username,
-                'avatar' => (
-                $user->userProfile != null && $user->userProfile->avatar != null && file_exists(Yii::getAlias('@backend/web') . '/uploads/user/avatar/200x200/' . $user->userProfile->avatar)
-                    ? Yii::getAlias('@frontendUrl') . '/uploads/user/avatar/200x200/' . $user->userProfile->avatar
-                    : Yii::getAlias('@frontendUrl') . '/images/default/avatar-default.png'
-                ),
-                'background' => (
-                $user->userProfile != null && $user->userProfile->cover != null && file_exists(Yii::getAlias('@backend/web') . '/uploads/user/cover/' . $user->userProfile->cover)
-                    ? Yii::getAlias('@frontendUrl') . '/uploads/user/cover/' . $user->userProfile->cover
-                    : Yii::getAlias('@frontendUrl') . '/images/default/background-login-default.jpg'
-                ),
-                'auth' => $auth
-            ]
-        ];
-    }
-
     public function actionResetPassword()
     {
         return $this->render('resetPassword', [
@@ -97,5 +50,11 @@ class AuthController extends MyAuthController
         return $this->render('requestPasswordReset', [
 
         ]);
+    }
+
+    public function actionLogout()
+    {
+        Yii::$app->user->logout();
+        return $this->goHome();
     }
 }
