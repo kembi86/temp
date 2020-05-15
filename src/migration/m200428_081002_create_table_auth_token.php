@@ -20,7 +20,7 @@ class m200428_081002_create_table_auth_token extends Migration
 
         $this->createTable('{{%user_token}}', [
             'id' => $this->primaryKey(),
-            'user_id' => $this->string()->notNull(),
+            'user_id' => $this->integer()->notNull(),
             'type' => $this->string(255)->notNull(),
             'token' => $this->string(40)->notNull(),
             'expire_at' => $this->integer(11)->null(),

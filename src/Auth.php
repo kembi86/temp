@@ -6,9 +6,6 @@ use yii\base\BootstrapInterface;
 use Yii;
 use yii\base\Event;
 use \yii\base\Module;
-use yii\filters\AccessControl;
-use yii\helpers\ArrayHelper;
-use yii\helpers\Url;
 use yii\web\Application;
 use yii\web\Controller;
 
