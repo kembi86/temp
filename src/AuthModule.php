@@ -25,6 +25,7 @@ class AuthModule extends Module implements BootstrapInterface
     public function init()
     {
         // custom initialization code goes here
+        $this->registerTranslations();
         parent::init();
         Yii::configure($this, require(__DIR__ . '/config/auth.php'));
         $handler = $this->get('errorHandler');
@@ -36,7 +37,6 @@ class AuthModule extends Module implements BootstrapInterface
                 Yii::$app->getAssetManager()->publish('@authweb/vendors/jquery/dist/jquery.min.js')[1],
             ]
         ];
-        $this->registerTranslations();
     }
 
     public function bootstrap($app)
