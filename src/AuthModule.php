@@ -12,7 +12,7 @@ use yii\web\Controller;
 /**
  * Auth module definition class
  */
-class Auth extends Module implements BootstrapInterface
+class AuthModule extends Module implements BootstrapInterface
 {
     /**
      * {@inheritdoc}

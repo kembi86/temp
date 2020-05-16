@@ -1,5 +1,5 @@
 <?php
 
-$this->title = \modava\auth\Auth::t('login', 'Request password reset');
+$this->title = \modava\auth\AuthModule::t('login', 'Request password reset');
 ?>
 reset
