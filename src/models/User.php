@@ -25,12 +25,20 @@ use yii\web\IdentityInterface;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
+    const EVENT_AFTER_SIGNUP = 'afterSignup';
     const STATUS_DELETED = 0;
     const STATUS_INACTIVE = 9;
     const STATUS_ACTIVE = 10;
+    const STATUS = [
+        self::STATUS_DELETED => 'Deleted',
+        self::STATUS_INACTIVE => 'Inactive',
+        self::STATUS_ACTIVE => 'Active'
+    ];
 
+    const DEV = 'develop';
     const USERS = 'users'; //user frontend
 
+    public $toastr_key = 'user';
 
     /**
      * {@inheritdoc}
@@ -212,5 +220,45 @@ class User extends ActiveRecord implements IdentityInterface
     public function removePasswordResetToken()
     {
         $this->password_reset_token = null;
+    }
+
+    /**
+     * Gets query for [[User]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUserProfile()
+    {
+        return $this->hasOne(UserProfile::class, ['user_id' => 'id']);
+    }
+
+    public function getUserToken()
+    {
+        return $this->hasMany(UserToken::class, ['user_id' => 'id']);
+    }
+
+    public function getUserCreated()
+    {
+        return $this->hasOne(User::class, ['id' => 'created_by']);
+    }
+
+    public function getAuthItem()
+    {
+        return $this->hasMany(RbacAuthItem::class, ['name' => 'item_name'])
+            ->viaTable('rbac_auth_assignment', ['user_id' => 'id']);
+    }
+
+    public function afterSignup(array $profileData = [])
+    {
+        $this->refresh();
+
+        $profile = new UserProfile();
+        $profile->locale = Yii::$app->language;
+        $profile->load($profileData, '');
+        $this->link('userProfile', $profile);
+        $this->trigger(self::EVENT_AFTER_SIGNUP);
+        // Default role
+        $auth = Yii::$app->authManager;
+        $auth->assign($auth->getRole(self::USERS), $this->getId());
     }
 }
