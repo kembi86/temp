@@ -23,7 +23,8 @@
     "yiisoft/yii2": "@dev",
     "yiisoft/yii2-bootstrap": "@dev",
     "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0",
-    "himiklab/yii2-recaptcha-widget": "*"
+    "himiklab/yii2-recaptcha-widget": "*",
+    "2amigos/yii2-arrayquery-component" : "*"
   },
   "autoload": {
     "psr-4": {
