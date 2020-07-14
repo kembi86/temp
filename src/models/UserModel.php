@@ -9,8 +9,9 @@ use yii\db\ActiveRecord;
 
 class UserModel extends User
 {
-    public $role;
+    const SCENARIO_DEV = 'dev';
     public $manager;
+    public $password = null;
 
     public function init()
     {
@@ -22,8 +23,10 @@ class UserModel extends User
         return [
             [
                 'class' => BlameableBehavior::class,
-                'createdByAttribute' => 'created_by',
-                'updatedByAttribute' => 'updated_by',
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_by', 'updated_by'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_by']
+                ],
             ],
             'timestamp' => [
                 'class' => 'yii\behaviors\TimestampBehavior',
@@ -57,7 +60,6 @@ class UserModel extends User
                 },
             ],
 
-
             ['username', 'string', 'min' => 2, 'max' => 255],
 
             ['email', 'filter', 'filter' => 'trim'],
@@ -74,7 +76,8 @@ class UserModel extends User
             ],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => array_keys(self::STATUS)],
-            [['fullname'], 'string', 'max' => 255]
+            [['role_name'], 'string'],
+            [['password'], 'string', 'on' => self::SCENARIO_DEV]
         ];
     }
 

@@ -16,8 +16,19 @@ use yii\helpers\ArrayHelper;
 <?= ToastrWidget::widget(['key' => 'toastr-' . $model->toastr_key . '-form']) ?>
 <div class="user-form">
     <?php $form = ActiveForm::begin(); ?>
-    <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
-    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+    <div class="row">
+        <div class="col-md-6 col-12">
+            <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-md-6 col-12">
+            <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+        </div>
+        <?php if ($model->scenario === UserModel::SCENARIO_DEV) { ?>
+            <div class="col-md-6 col-12">
+                <?= $form->field($model, 'password')->passwordInput() ?>
+            </div>
+        <?php } ?>
+    </div>
     <div class="row">
         <div class="col-6">
             <?= $form->field($modelProfile, 'fullname')->textInput(['maxlength' => true]) ?>
@@ -28,13 +39,17 @@ use yii\helpers\ArrayHelper;
     </div>
     <?= $form->field($model, 'status')->dropDownList(UserModel::STATUS, []) ?>
     <div class="row">
-        <div class="col-lg-4 col-xl-4 col-md-4 col-xs-6 col-6">
+        <div class="col-md-6 col-12">
             <div class="form-group field-user-status">
-                <label class="control-label" for="user-status">Quyền</label>
                 <?php
                 $user = new UserModel();
                 $auth = Yii::$app->authManager;
-                echo Html::dropDownList('User[role_name]', $user->getRoleName($model->id), ArrayHelper::map($auth->getChildRoles($user->getRoleName(Yii::$app->user->id)), 'name', 'description'), ['class' => 'form-control', 'id' => 'user-role-name']); ?>
+                $model->role_name = $user->getRoleName($model->id);
+                ?>
+                <?= $form->field($model, 'role_name')->dropDownList(ArrayHelper::map($auth->getChildRoles($user->getRoleName(Yii::$app->user->id)), 'name', 'description'), [
+                    'class' => 'form-control',
+                    'id' => 'user-role-name'
+                ])->label('Quyền') ?>
             </div>
         </div>
     </div>

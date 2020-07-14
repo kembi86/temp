@@ -26,8 +26,11 @@ $this->params['breadcrumbs'][] = $this->title;
         </h4>
         <p>
             <a class="btn btn-outline-light" href="<?= Url::to(['create']); ?>"
-                title="<?= AuthModule::t('auth', 'Create'); ?>">
+               title="<?= AuthModule::t('auth', 'Create'); ?>">
                 <i class="fa fa-plus"></i> <?= AuthModule::t('auth', 'Create'); ?></a>
+            <a class="btn btn-success" href="<?= Url::to(['/auth/user-metadata/update', 'id' => $model->id]); ?>"
+               title="<?= AuthModule::t('auth', 'Metadata'); ?>">
+                <i class="glyphicon glyphicon-cog"></i> <?= AuthModule::t('auth', 'Metadata'); ?></a>
             <?= Html::a(AuthModule::t('auth', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
             <?= Html::a(AuthModule::t('auth', 'Delete'), ['delete', 'id' => $model->id], [
                 'class' => 'btn btn-danger',
@@ -47,30 +50,34 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= DetailView::widget([
                     'model' => $model,
                     'attributes' => [
-						'id',
-						'username',
-						'auth_key',
-						'password_hash',
-						'oauth_client',
-						'oauth_client_user_id',
-						'password_reset_token',
-						'email:email',
+                        'id',
+                        'username',
+                        'oauth_client',
+                        'oauth_client_user_id',
+                        'email:email',
                         [
                             'attribute' => 'status',
                             'value' => function ($model) {
-                                return Yii::$app->getModule('auth')->params['status'][$model->status];
+                                return \modava\auth\models\User::STATUS[$model->status];
                             }
                         ],
-						'created_at',
-						'updated_at',
-						'logged_at',
-						'verification_token',
+                        'created_at:datetime',
+                        'updated_at:datetime',
+                        'logged_at:datetime',
                         [
-                            'attribute' => 'userCreated.userProfile.fullname',
+                            'attribute' => 'created_by',
+                            'value' => function ($model) {
+                                if ($model->userCreated == null) return null;
+                                return $model->userCreated->userProfile->fullname;
+                            },
                             'label' => AuthModule::t('auth', 'Created By')
                         ],
                         [
-                            'attribute' => 'userUpdated.userProfile.fullname',
+                            'attribute' => 'updated_by',
+                            'value' => function ($model) {
+                                if ($model->userUpdated == null) return null;
+                                return $model->userUpdated->userProfile->fullname;
+                            },
                             'label' => AuthModule::t('auth', 'Updated By')
                         ],
                     ],

@@ -4,8 +4,10 @@ namespace modava\auth\models;
 
 use Yii;
 use yii\base\NotSupportedException;
+use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 use yii\web\IdentityInterface;
 
 /**
@@ -30,15 +32,23 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_INACTIVE = 9;
     const STATUS_ACTIVE = 10;
     const STATUS = [
+        self::STATUS_ACTIVE => 'Active',
         self::STATUS_DELETED => 'Deleted',
         self::STATUS_INACTIVE => 'Inactive',
-        self::STATUS_ACTIVE => 'Active'
     ];
 
     const DEV = 'develop';
     const USERS = 'users'; //user frontend
 
     public $toastr_key = 'user';
+    public $manager;
+    public $role_name;
+    public $role;
+
+    public function init()
+    {
+        $this->manager = Yii::$app->authManager;
+    }
 
     /**
      * {@inheritdoc}
@@ -222,6 +232,28 @@ class User extends ActiveRecord implements IdentityInterface
         $this->password_reset_token = null;
     }
 
+    /*
+     * Trả về tên Role của user.
+     */
+
+    public function getRoleName($id)
+    {
+        $cache = Yii::$app->cache;
+        $key = 'rbac-' . $id;
+
+        $assignment = $cache->get($key);
+
+        if ($assignment == false) {
+            $assignment = array_keys($this->manager->getAssignments($id));
+            $assignment = $assignment != null ? $assignment[0] : null;
+
+            $cache->set($key, $assignment);
+        }
+
+
+        return $assignment;
+    }
+
     /**
      * Gets query for [[User]].
      *
@@ -242,6 +274,11 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasOne(User::class, ['id' => 'created_by']);
     }
 
+    public function getUserUpdated()
+    {
+        return $this->hasOne(User::class, ['id' => 'updated_by']);
+    }
+
     public function getAuthItem()
     {
         return $this->hasMany(RbacAuthItem::class, ['name' => 'item_name'])
@@ -259,6 +296,42 @@ class User extends ActiveRecord implements IdentityInterface
         $this->trigger(self::EVENT_AFTER_SIGNUP);
         // Default role
         $auth = Yii::$app->authManager;
-        $auth->assign($auth->getRole(self::USERS), $this->getId());
+        $auth->assign($auth->getRole($this->role_name), $this->getId());
+    }
+
+    /*
+     * Kiểm tra parent - child
+     * $role đưa vào cần kiểm tra
+     * $roleUser role của người đang kiểm tra
+     */
+    public function checkParent(string $role, string $roleUser): bool
+    {
+        if ($roleUser == 'user_develop') {
+            return true;
+        }
+        $result = $this->manager->getChildRoles($roleUser);
+        foreach ($result as $roleName) {
+            if ($role == $roleName->name) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function getUserMetadataHasOne()
+    {
+        return $this->hasOne(UserMetadata::class, ['user_id' => 'id']);
+    }
+
+    public function getUserMetadata($metadataName = null)
+    {
+        if ($this->primaryKey == null) return null;
+        $metadata = $this->userMetadataHasOne == null ? [] : $this->userMetadataHasOne->metadata;
+        if (!is_array($metadata)) $metadata = [];
+        if (is_string($metadataName)) return $metadata[$metadataName] ?: null;
+        if (is_array($metadataName)) {
+            return ArrayHelper::filter($metadata, $metadataName);
+        }
+        return null;
     }
 }

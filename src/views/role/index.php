@@ -1,18 +1,19 @@
 <?php
 
+use yii\helpers\ArrayHelper;
 use modava\auth\AuthModule;
 use modava\auth\widgets\NavbarWidgets;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use backend\widgets\ToastrWidget;
 use yii\widgets\Pjax;
-use modava\auth\models\User;
+use modava\auth\models\RbacAuthItem;
 
 /* @var $this yii\web\View */
-/* @var $searchModel modava\auth\models\search\UserSearch */
+/* @var $searchModel modava\auth\models\search\RbacAuthItemSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = AuthModule::t('auth', 'Users');
+$this->title = AuthModule::t('auth', 'Roles');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <?= ToastrWidget::widget(['key' => 'toastr-' . $searchModel->toastr_key . '-index']) ?>
@@ -86,97 +87,57 @@ $this->params['breadcrumbs'][] = $this->title;
                                             'lastPageCssClass' => 'paginate_button page-item',
                                         ],
                                         'columns' => [
-                                            [
-                                                'class' => 'yii\grid\SerialColumn',
-                                                'header' => 'STT',
+                                            ['class' => 'yii\grid\SerialColumn',
                                                 'headerOptions' => [
                                                     'width' => 60,
                                                     'rowspan' => 2
                                                 ],
                                                 'filterOptions' => [
-                                                    'class' => 'd-none',
+                                                    'class' => 'd-none'
                                                 ],
                                             ],
                                             [
-                                                'attribute' => 'userProfile.fullname',
-                                                'label' => AuthModule::t('auth', 'User')
-                                            ],
-                                            'email:email',
-                                            'userProfile.phone',
-                                            [
-                                                'attribute' => 'status',
-                                                'value' => function ($model) {
-                                                    return User::STATUS[$model->status];
-                                                }
-                                            ],
-                                            [
-                                                'attribute' => 'role',
+                                                'attribute' => 'description',
                                                 'format' => 'raw',
                                                 'value' => function ($model) {
-                                                    $role = '';
-                                                    foreach ($model->authItem as $auth_item) {
-                                                        $role .= Html::tag('span', $auth_item->name, [
-                                                            'class' => 'badge badge-info'
-                                                        ]);
-                                                    }
-                                                    return $role;
-                                                }
-                                            ],
-                                            //'password_reset_token',
-                                            //'logged_at',
-                                            //'verification_token',
-                                            [
-                                                'attribute' => 'created_by',
-                                                'value' => 'userCreated.userProfile.fullname',
+                                                    return Html::a($model->description, yii\helpers\Url::to(['view', 'id' => $model->name]), ['data-pjax' => 0]);
+                                                },
                                                 'headerOptions' => [
-                                                    'width' => 150,
+                                                    'width' => 200,
                                                 ],
                                             ],
                                             [
-                                                'attribute' => 'created_at',
-                                                'format' => 'date',
+                                                'attribute' => 'name',
                                                 'headerOptions' => [
-                                                    'width' => 150,
+                                                    'width' => 200,
                                                 ],
                                             ],
                                             [
-                                                'class' => 'yii\grid\ActionColumn',
-                                                'header' => AuthModule::t('auth', 'Actions'),
-                                                'template' => '{metadata} {update} {delete}',
-                                                'buttons' => [
-                                                    'metadata' => function ($url, $model) {
-                                                        return Html::a('<span class="glyphicon glyphicon-cog"></span>', ['/auth/user-metadata/update', 'id' => $model->id], [
-                                                            'title' => AuthModule::t('auth', 'Metadata'),
-                                                            'alia-label' => AuthModule::t('auth', 'Metadata'),
-                                                            'data-pjax' => 0,
-                                                            'class' => 'btn btn-success btn-xs'
-                                                        ]);
-                                                    },
-                                                    'update' => function ($url, $model) {
-                                                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
-                                                            'title' => AuthModule::t('auth', 'Update'),
-                                                            'alia-label' => AuthModule::t('auth', 'Update'),
-                                                            'data-pjax' => 0,
-                                                            'class' => 'btn btn-info btn-xs'
-                                                        ]);
-                                                    },
-                                                    'delete' => function ($url, $model) {
-                                                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:;', [
-                                                            'title' => AuthModule::t('auth', 'Delete'),
-                                                            'class' => 'btn btn-danger btn-xs btn-del',
-                                                            'data-title' => AuthModule::t('auth', 'Delete?'),
-                                                            'data-pjax' => 0,
-                                                            'data-url' => $url,
-                                                            'btn-success-class' => 'success-delete',
-                                                            'btn-cancel-class' => 'cancel-delete',
-                                                            'data-placement' => 'top'
-                                                        ]);
-                                                    }
-                                                ],
+                                                'class' => \common\grid\EnumColumn::class,
+                                                'attribute' => 'ruleName',
+                                                'filter' => ArrayHelper::map(Yii::$app->getAuthManager()->getRules(), 'name', 'name'),
+                                                'filterInputOptions' => ['class' => 'form-control', 'prompt' => Yii::t('rbac', 'Select Rule')],
                                                 'headerOptions' => [
-                                                    'width' => 150,
+                                                    'width' => 60,
+                                                    'rowspan' => 2
+                                                ],
+                                                'filterOptions' => [
+                                                    'class' => 'd-none'
                                                 ],
                                             ],
+//                                [
+//                                    'class' => \common\grid\EnumColumn::class,
+//                                    'attribute' => 'type',
+//                                    'enum' => RbacAuthItem::getRoleType(),
+//                                    'filter' => RbacAuthItem::getRoleType(),
+//                                ],
+//                                [
+//                                    'class' => \common\grid\EnumColumn::class,
+//                                    'attribute' => 'rule_name',
+//                                    'filter' => ArrayHelper::map(Yii::$app->getAuthManager()->getRules(), 'name', 'name'),
+//                                    'filterInputOptions' => ['class' => 'form-control', 'prompt' => Yii::t('rbac', 'Select Rule')],
+//                                ],
+
                                         ],
                                     ]); ?>
                                 </div>

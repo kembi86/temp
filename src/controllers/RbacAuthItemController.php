@@ -18,8 +18,8 @@ use modava\auth\models\search\RbacAuthItemSearch;
 class RbacAuthItemController extends MyController
 {
     /**
-    * {@inheritdoc}
-    */
+     * {@inheritdoc}
+     */
     public function behaviors()
     {
         return [
@@ -39,9 +39,9 @@ class RbacAuthItemController extends MyController
     }
 
     /**
-    * Lists all RbacAuthItem models.
-    * @return mixed
-    */
+     * Lists all RbacAuthItem models.
+     * @return mixed
+     */
     public function actionIndex()
     {
         $searchModel = new RbacAuthItemSearch();
@@ -51,16 +51,15 @@ class RbacAuthItemController extends MyController
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
-            }
-
+    }
 
 
     /**
-    * Displays a single RbacAuthItem model.
-    * @param integer $id
-    * @return mixed
-    * @throws NotFoundHttpException if the model cannot be found
-    */
+     * Displays a single RbacAuthItem model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
     public function actionView($id)
     {
         return $this->render('view', [
@@ -69,10 +68,10 @@ class RbacAuthItemController extends MyController
     }
 
     /**
-    * Creates a new RbacAuthItem model.
-    * If creation is successful, the browser will be redirected to the 'view' page.
-    * @return mixed
-    */
+     * Creates a new RbacAuthItem model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
     public function actionCreate()
     {
         $model = new RbacAuthItem();
@@ -104,18 +103,18 @@ class RbacAuthItemController extends MyController
     }
 
     /**
-    * Updates an existing RbacAuthItem model.
-    * If update is successful, the browser will be redirected to the 'view' page.
-    * @param integer $id
-    * @return mixed
-    * @throws NotFoundHttpException if the model cannot be found
-    */
+     * Updates an existing RbacAuthItem model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
-            if($model->validate()) {
+            if ($model->validate()) {
                 if ($model->save()) {
                     Yii::$app->session->setFlash('toastr-' . $model->toastr_key . '-view', [
                         'title' => 'Thông báo',
@@ -143,12 +142,12 @@ class RbacAuthItemController extends MyController
     }
 
     /**
-    * Deletes an existing RbacAuthItem model.
-    * If deletion is successful, the browser will be redirected to the 'index' page.
-    * @param integer $id
-    * @return mixed
-    * @throws NotFoundHttpException if the model cannot be found
-    */
+     * Deletes an existing RbacAuthItem model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
@@ -181,17 +180,18 @@ class RbacAuthItemController extends MyController
     }
 
     /**
-    * Finds the RbacAuthItem model based on its primary key value.
-    * If the model is not found, a 404 HTTP exception will be thrown.
-    * @param integer $id
-    * @return RbacAuthItem the loaded model
-    * @throws NotFoundHttpException if the model cannot be found
-    */
+     * Finds the RbacAuthItem model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return RbacAuthItem the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
 
 
     protected function findModel($id)
     {
-        if (($model = RbacAuthItem::findOne($id)) !== null) {
+        $model = RbacAuthItem::findOne($id);
+        if ($model !== null) {
             return $model;
         }
 

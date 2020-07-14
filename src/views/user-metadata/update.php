@@ -2,18 +2,16 @@
 
 use modava\auth\widgets\NavbarWidgets;
 use yii\helpers\Html;
-use yii\helpers\Url;
 use modava\auth\AuthModule;
 
 /* @var $this yii\web\View */
-/* @var $model modava\auth\models\User */
-/* @var $modelProfile modava\auth\models\UserProfile */
+/* @var $model modava\auth\models\UserMetadata */
 
 $this->title = AuthModule::t('auth', 'Update : {name}', [
-    'name' => $model->id,
+    'name' => $model->userHasOne->userProfile->fullname,
 ]);
 $this->params['breadcrumbs'][] = ['label' => AuthModule::t('auth', 'Users'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => $model->userHasOne->userProfile->fullname, 'url' => ['view', 'id' => $model->user_id]];
 $this->params['breadcrumbs'][] = AuthModule::t('auth', 'Update');
 ?>
 <div class="container-fluid px-xxl-25 px-xl-10">
@@ -24,9 +22,6 @@ $this->params['breadcrumbs'][] = AuthModule::t('auth', 'Update');
         <h4 class="hk-pg-title"><span class="pg-title-icon"><span
                         class="ion ion-md-apps"></span></span><?= Html::encode($this->title) ?>
         </h4>
-        <a class="btn btn-outline-light" href="<?= Url::to(['create']); ?>"
-           title="<?= AuthModule::t('auth', 'Create'); ?>">
-            <i class="fa fa-plus"></i> <?= AuthModule::t('auth', 'Create'); ?></a>
     </div>
     <!-- /Title -->
 
@@ -36,7 +31,6 @@ $this->params['breadcrumbs'][] = AuthModule::t('auth', 'Update');
             <section class="hk-sec-wrapper">
                 <?= $this->render('_form', [
                     'model' => $model,
-                    'modelProfile' => $modelProfile
                 ]) ?>
 
             </section>

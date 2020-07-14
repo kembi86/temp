@@ -48,7 +48,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     'model' => $model,
                     'attributes' => [
                         'name',
-                        'type',
+                        [
+                            'attribute' => 'type',
+                            'value' => function ($model) {
+                                return \modava\auth\models\RbacAuthItem::TYPE[$model->type];
+                            }
+                        ],
                         'description:ntext',
                         'created_at:datetime',
                         'updated_at:datetime',

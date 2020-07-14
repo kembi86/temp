@@ -7,6 +7,7 @@ use Yii;
 
 class UserProfile extends ActiveRecord
 {
+    const SCENARIO_SAVE = 'save';
     const GENDER_MALE = 1;
     const GENDER_FEMALE = 2;
     const GENDER_OTHER = 3;
@@ -31,9 +32,10 @@ class UserProfile extends ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'phone'], 'required'],
+            [['user_id'], 'required', 'on' => self::SCENARIO_SAVE],
+            [['phone'], 'required'],
             [['user_id', 'gender'], 'integer'],
-            [['gender'], 'in', 'range' => [null, self::GENDER_FEMALE, self::GENDER_MALE]],
+            [['gender'], 'in', 'range' => self::GENDER],
             [['fullname', 'address', 'avatar', 'cover'], 'string', 'max' => 255],
             [['facebook'], 'string', 'max' => 50],
             [['bithday', 'phone'], 'string', 'max' => 25],
@@ -41,6 +43,9 @@ class UserProfile extends ActiveRecord
             [['avatar', 'cover'], 'string', 'max' => 255],
             ['locale', 'default', 'value' => Yii::$app->language],
             ['locale', 'in', 'range' => array_keys(Yii::$app->params['availableLocales'])],
+            [['phone'], 'unique', 'targetClass' => self::class, 'targetAttribute' => 'phone', 'filter' => function ($query) {
+                $query->andWhere(['not', ['user_id' => $this->getPrimaryKey()]]);
+            },]
         ];
     }
 
