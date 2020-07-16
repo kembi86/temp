@@ -38,12 +38,15 @@ class User extends ActiveRecord implements IdentityInterface
     ];
 
     const DEV = 'develop';
+    const SALES_ONLINE = 'sales_online';
+    const CLINIC = 'clinic';
     const USERS = 'users'; //user frontend
 
     public $toastr_key = 'user';
     public $manager;
     public $role_name;
     public $role;
+    public $fullname;
 
     public function init()
     {
@@ -333,5 +336,15 @@ class User extends ActiveRecord implements IdentityInterface
             return ArrayHelper::filter($metadata, $metadataName);
         }
         return null;
+    }
+
+    public static function getUserByRole($role, $select = null, $active = true)
+    {
+        if (!is_string($role) && !is_array($role)) return [];
+        $query = self::find()->joinWith(['authItem', 'userProfile'])
+            ->where([RbacAuthItem::tableName() . '.name' => $role]);
+        if ($select != null) $query->select($select);
+        if ($active === true) $query->andWhere([self::tableName() . '.status' => self::STATUS_ACTIVE]);
+        return $query->all();
     }
 }

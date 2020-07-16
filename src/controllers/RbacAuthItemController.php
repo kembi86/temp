@@ -150,31 +150,40 @@ class RbacAuthItemController extends MyController
      */
     public function actionDelete($id)
     {
-        $model = $this->findModel($id);
-        try {
-            if ($model->delete()) {
-                Yii::$app->session->setFlash('toastr-' . $model->toastr_key . '-index', [
-                    'title' => 'Thông báo',
-                    'text' => 'Xoá thành công',
-                    'type' => 'success'
-                ]);
-            } else {
-                $errors = Html::tag('p', 'Xoá thất bại');
-                foreach ($model->getErrors() as $error) {
-                    $errors .= Html::tag('p', $error[0]);
+        if ($id == 'loginToBackend') {
+            $model = new RbacAuthItem();
+            Yii::$app->session->setFlash('toastr-' . $model->toastr_key . '-index', [
+                'title' => 'Thông báo',
+                'text' => Html::tag('p', 'Không được xóa quyền loginToBackend'),
+                'type' => 'warning'
+            ]);
+        } else {
+            $model = $this->findModel($id);
+            try {
+                if ($model->delete()) {
+                    Yii::$app->session->setFlash('toastr-' . $model->toastr_key . '-index', [
+                        'title' => 'Thông báo',
+                        'text' => 'Xoá thành công',
+                        'type' => 'success'
+                    ]);
+                } else {
+                    $errors = Html::tag('p', 'Xoá thất bại');
+                    foreach ($model->getErrors() as $error) {
+                        $errors .= Html::tag('p', $error[0]);
+                    }
+                    Yii::$app->session->setFlash('toastr-' . $model->toastr_key . '-index', [
+                        'title' => 'Thông báo',
+                        'text' => $errors,
+                        'type' => 'warning'
+                    ]);
                 }
+            } catch (Exception $ex) {
                 Yii::$app->session->setFlash('toastr-' . $model->toastr_key . '-index', [
                     'title' => 'Thông báo',
-                    'text' => $errors,
+                    'text' => Html::tag('p', 'Xoá thất bại: ' . $ex->getMessage()),
                     'type' => 'warning'
                 ]);
             }
-        } catch (Exception $ex) {
-            Yii::$app->session->setFlash('toastr-' . $model->toastr_key . '-index', [
-                'title' => 'Thông báo',
-                'text' => Html::tag('p', 'Xoá thất bại: ' . $ex->getMessage()),
-                'type' => 'warning'
-            ]);
         }
         return $this->redirect(['index']);
     }

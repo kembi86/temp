@@ -135,7 +135,6 @@ class RoleController extends MyAuthController
         }
 
         $permission_user = Yii::$app->authManager->getPermissionsByRole($name);
-        unset($permission_user["loginToBackend"]);
         $permission_user = array_keys($permission_user);
 
         $model = $this->findModel($name);
