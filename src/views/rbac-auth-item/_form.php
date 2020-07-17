@@ -22,7 +22,7 @@ if ($model->type == null) $model->type = RbacAuthItem::TYPE_PERMISSION;
         <?php $form = ActiveForm::begin(); ?>
         <div class="row">
             <div class="col-md-6 col-12">
-                <?= $form->field($model, 'name')->textInput(array_merge(['maxlength' => true], ($model->name == null ? [] : ['disabled' => true]))) ?>
+                <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
             </div>
             <div class="col-md-6 col-12">
                 <?= $form->field($model, 'type')->dropDownList((Yii::$app->user->can(User::DEV) ? RbacAuthItem::TYPE : function () {
