@@ -82,11 +82,6 @@ class UserModel extends User
         ];
     }
 
-    public function attributeLabels()
-    {
-        return [];
-    }
-
     public function getRoleName($id)
     {
         $cache = Yii::$app->cache;

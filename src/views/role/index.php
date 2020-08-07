@@ -118,9 +118,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                                     'width' => 60,
                                                     'rowspan' => 2
                                                 ],
-                                                'filterOptions' => [
-                                                    'class' => 'd-none'
-                                                ],
                                             ],
 //                                [
 //                                    'class' => \common\grid\EnumColumn::class,

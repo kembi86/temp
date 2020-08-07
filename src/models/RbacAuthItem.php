@@ -2,7 +2,6 @@
 
 namespace modava\auth\models;
 
-use common\helpers\MyHelper;
 use common\models\User;
 use cornernote\linkall\LinkAllBehavior;
 use modava\auth\AuthModule;
@@ -24,9 +23,7 @@ use yii\rbac\Item;
  * @property int $created_at
  * @property int $updated_at
  *
- * @property RbacAuthAssignment[] $rbacAuthAssignments
  * @property User[] $users
- * @property RbacAuthRule $ruleName
  * @property RbacAuthItemChild[] $rbacAuthItemChildren
  * @property RbacAuthItemChild[] $rbacAuthItemChildren0
  * @property RbacAuthItem[] $children
@@ -110,22 +107,22 @@ class RbacAuthItem extends RbacAuthItemTable
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-            'name' => AuthModule::t('auth', 'Name'),
-            'type' => AuthModule::t('auth', 'Type'),
-            'description' => AuthModule::t('auth', 'Description'),
-            'rule_name' => AuthModule::t('auth', 'Rule Name'),
-            'data' => AuthModule::t('auth', 'Data'),
-            'created_at' => AuthModule::t('auth', 'Created At'),
-            'updated_at' => AuthModule::t('auth', 'Updated At'),
-            'parents' => AuthModule::t('auth', 'Parent'),
-        ];
-    }
+//    /**
+//     * {@inheritdoc}
+//     */
+//    public function attributeLabels()
+//    {
+//        return [
+//            'name' => AuthModule::t('auth', 'Name'),
+//            'type' => AuthModule::t('auth', 'Type'),
+//            'description' => AuthModule::t('auth', 'Description'),
+//            'rule_name' => AuthModule::t('auth', 'Rule Name'),
+//            'data' => AuthModule::t('auth', 'Data'),
+//            'created_at' => AuthModule::t('auth', 'Created At'),
+//            'updated_at' => AuthModule::t('auth', 'Updated At'),
+//            'parents' => AuthModule::t('auth', 'Parent'),
+//        ];
+//    }
 
     public function afterSave($insert, $changedAttributes)
     {
