@@ -2,6 +2,7 @@
 
 namespace modava\auth\models;
 
+use modava\auth\AuthModule;
 use Yii;
 use yii\behaviors\AttributeBehavior;
 use yii\behaviors\BlameableBehavior;
@@ -54,7 +55,7 @@ class UserModel extends User
                 'username',
                 'unique',
                 'targetClass' => '\common\models\User',
-                'message' => Yii::t('frontend', 'This username has already been taken.'),
+                'message' => AuthModule::t('auth', 'This username has already been taken.'),
                 'filter' => function ($query) {
                     $query->andWhere(['not', ['id' => $this->getId()]]);
                 },
@@ -69,7 +70,7 @@ class UserModel extends User
                 'email',
                 'unique',
                 'targetClass' => '\common\models\User',
-                'message' => Yii::t('frontend', 'This email address has already been taken.'),
+                'message' => AuthModule::t('auth', 'This email address has already been taken.'),
                 'filter' => function ($query) {
                     $query->andWhere(['not', ['id' => $this->getId()]]);
                 },

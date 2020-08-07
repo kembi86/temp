@@ -2,6 +2,7 @@
 
 namespace modava\auth\models;
 
+use modava\auth\AuthModule;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\BlameableBehavior;
@@ -38,8 +39,6 @@ class User extends ActiveRecord implements IdentityInterface
     ];
 
     const DEV = 'develop';
-    const SALES_ONLINE = 'sales_online';
-    const CLINIC = 'clinic';
     const USERS = 'users'; //user frontend
 
     public $toastr_key = 'user';
@@ -79,6 +78,29 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             ['status', 'default', 'value' => self::STATUS_INACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
+        ];
+    }
+
+
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+            'fullname' => AuthModule::t('auth', 'Full name'),
+            'name' => AuthModule::t('auth', 'Name'),
+            'type' => AuthModule::t('auth', 'Type'),
+            'description' => AuthModule::t('auth', 'Description'),
+            'rule_name' => AuthModule::t('auth', 'Rule Name'),
+            'data' => AuthModule::t('auth', 'Data'),
+            'role' => AuthModule::t('auth', 'Role'),
+            'status' => AuthModule::t('auth', 'Status'),
+            'created_at' => AuthModule::t('auth', 'Created At'),
+            'updated_at' => AuthModule::t('auth', 'Updated At'),
+            'created_by' => AuthModule::t('auth', 'Created By'),
+            'updated_by' => AuthModule::t('auth', 'Updated By'),
+            'parents' => AuthModule::t('auth', 'Parent'),
         ];
     }
 

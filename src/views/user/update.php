@@ -10,10 +10,10 @@ use modava\auth\AuthModule;
 /* @var $modelProfile modava\auth\models\UserProfile */
 
 $this->title = AuthModule::t('auth', 'Update : {name}', [
-    'name' => $model->id,
+    'name' => $model->userProfile->fullname,
 ]);
 $this->params['breadcrumbs'][] = ['label' => AuthModule::t('auth', 'Users'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => $model->userProfile->fullname, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = AuthModule::t('auth', 'Update');
 ?>
 <div class="container-fluid px-xxl-25 px-xl-10">
