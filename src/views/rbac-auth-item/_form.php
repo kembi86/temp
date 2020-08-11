@@ -16,6 +16,11 @@ if ($model->parentHasMany != null) {
     $model->parents = ArrayHelper::map($model->parentHasMany, 'name', 'name');
 }
 if ($model->type == null) $model->type = RbacAuthItem::TYPE_PERMISSION;
+
+$type = RbacAuthItem::TYPE;
+if (!Yii::$app->user->can(User::DEV)) {
+    unset($type[RbacAuthItem::TYPE_ROLE]);
+}
 ?>
 <?= ToastrWidget::widget(['key' => 'toastr-' . $model->toastr_key . '-form']) ?>
     <div class="rbac-auth-item-form">
@@ -25,11 +30,7 @@ if ($model->type == null) $model->type = RbacAuthItem::TYPE_PERMISSION;
                 <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
             </div>
             <div class="col-md-6 col-12">
-                <?= $form->field($model, 'type')->dropDownList((Yii::$app->user->can(User::DEV) ? RbacAuthItem::TYPE : function () {
-                    $type = RbacAuthItem::TYPE;
-                    unset($type[RbacAuthItem::TYPE_ROLE]);
-                    return $type;
-                }), [
+                <?= $form->field($model, 'type')->dropDownList($type, [
                     'id' => 'select-type'
                 ]) ?>
             </div>
