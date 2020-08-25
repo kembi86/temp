@@ -43,6 +43,13 @@ class UserModel extends User
                 ],
                 'value' => Yii::$app->getSecurity()->generateRandomString()
             ],
+            'access_token' => [
+                'class' => AttributeBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => 'access_token'
+                ],
+                'value' => Yii::$app->getSecurity()->generateRandomString(40)
+            ],
         ];
     }
 

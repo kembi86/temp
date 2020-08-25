@@ -3,6 +3,7 @@
 namespace modava\auth\models;
 
 use modava\auth\AuthModule;
+use modava\auth\models\query\UserQuery;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\AttributeBehavior;
@@ -68,14 +69,12 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             TimestampBehavior::class,
-            'access_token' => [
-                'class' => AttributeBehavior::class,
-                'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_INSERT => 'access_token'
-                ],
-                'value' => Yii::$app->getSecurity()->generateRandomString(40)
-            ],
         ];
+    }
+
+    public static function find()
+    {
+        return new UserQuery(get_called_class());
     }
 
     /**
@@ -121,11 +120,14 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
+        return static::find()
+            ->active()
+            ->andWhere(['access_token' => $token])
+            ->one();
     }
 
     /**
