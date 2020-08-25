@@ -5,6 +5,7 @@ namespace modava\auth\models;
 use modava\auth\AuthModule;
 use Yii;
 use yii\base\NotSupportedException;
+use yii\behaviors\AttributeBehavior;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
@@ -67,6 +68,13 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             TimestampBehavior::class,
+            'access_token' => [
+                'class' => AttributeBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => 'access_token'
+                ],
+                'value' => Yii::$app->getSecurity()->generateRandomString(40)
+            ],
         ];
     }
 
