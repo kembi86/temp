@@ -3,15 +3,12 @@
 namespace modava\auth\controllers;
 
 use backend\components\MyComponent;
+use modava\auth\components\MyAuthController;
 use modava\auth\models\RbacAuthItem;
 use modava\auth\models\search\RbacAuthItemSearch;
-use modava\auth\models\table\RbacAuthItemTable;
 use modava\auth\models\User;
 use Yii;
-use modava\auth\components\MyAuthController;
-use yii\db\Exception;
 use yii\filters\VerbFilter;
-use yii\helpers\Html;
 use yii\rbac\Item;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
@@ -59,14 +56,7 @@ class RoleController extends MyAuthController
         unset($dataProvider->allModels['loginToBackend']);
         unset($dataProvider->allModels[$roleName]);
 
-        if (MyComponent::hasCookies('pageSize')) {
-            $dataProvider->pagination->pageSize = MyComponent::getCookies('pageSize');
-        } else {
-            $dataProvider->pagination->pageSize = 20;
-        }
-        $pageSize = $dataProvider->pagination->pageSize;
-        $totalCount = $dataProvider->totalCount;
-        $totalPage = (($totalCount + $pageSize - 1) / $pageSize);
+        $totalPage = $this->getTotalPage($dataProvider);
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
@@ -89,6 +79,33 @@ class RoleController extends MyAuthController
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
+    }
+
+    /**
+     * @param $perpage
+     */
+    public function actionPerpage($perpage)
+    {
+        MyComponent::setCookies('pageSize', $perpage);
+    }
+
+    /**
+     * @param $dataProvider
+     * @return float|int
+     */
+    public function getTotalPage($dataProvider)
+    {
+        if (MyComponent::hasCookies('pageSize')) {
+            $dataProvider->pagination->pageSize = MyComponent::getCookies('pageSize');
+        } else {
+            $dataProvider->pagination->pageSize = 10;
+        }
+
+        $pageSize = $dataProvider->pagination->pageSize;
+        $totalCount = $dataProvider->totalCount;
+        $totalPage = (($totalCount + $pageSize - 1) / $pageSize);
+
+        return $totalPage;
     }
 
     public function actionPermissionForRole()

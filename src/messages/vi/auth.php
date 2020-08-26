@@ -37,5 +37,8 @@ return [
     'Save' => 'Lưu',
     'Full name' => 'Họ tên',
     'Update : {name}' => 'Cập nhật: {name}',
-
+    'First' => 'Đầu',
+    'Last' => 'Cuối',
+    'Previous' => 'Trước',
+    'Next' => 'Tiếp',
 ];

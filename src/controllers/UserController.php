@@ -2,20 +2,20 @@
 
 namespace modava\auth\controllers;
 
-use common\commands\SendEmailCommand;
+use backend\components\MyComponent;
+use backend\components\MyController;
 use common\helpers\MyHelper;
+use modava\auth\AuthModule;
+use modava\auth\models\search\UserSearch;
+use modava\auth\models\User;
 use modava\auth\models\UserModel;
 use modava\auth\models\UserProfile;
-use yii\db\Exception;
 use Yii;
+use yii\db\Exception;
 use yii\db\Transaction;
-use yii\helpers\Html;
 use yii\filters\VerbFilter;
+use yii\helpers\Html;
 use yii\web\NotFoundHttpException;
-use modava\auth\AuthModule;
-use backend\components\MyController;
-use modava\auth\models\User;
-use modava\auth\models\search\UserSearch;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -55,9 +55,12 @@ class UserController extends MyController
         $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        $totalPage = $this->getTotalPage($dataProvider);
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'totalPage' => $totalPage,
         ]);
     }
 
@@ -84,7 +87,7 @@ class UserController extends MyController
     {
         $model = new UserModel();
         $modelProfile = new UserProfile();
-        if(Yii::$app->user->can(User::DEV)){
+        if (Yii::$app->user->can(User::DEV)) {
             $model->scenario = UserModel::SCENARIO_DEV;
         }
 
@@ -106,11 +109,11 @@ class UserController extends MyController
                             'pass' => $pass,
                         ]
                     ]))) {*/
-                        Yii::$app->session->setFlash('toastr-' . $model->toastr_key . '-view', [
-                            'title' => 'Thông báo',
-                            'text' => 'Tạo mới thành công',
-                            'type' => 'success'
-                        ]);
+                    Yii::$app->session->setFlash('toastr-' . $model->toastr_key . '-view', [
+                        'title' => 'Thông báo',
+                        'text' => 'Tạo mới thành công',
+                        'type' => 'success'
+                    ]);
                     /*} else {
                         Yii::$app->session->setFlash('toastr-' . $model->toastr_key . '-view', [
                             'title' => 'Thông báo',
@@ -158,13 +161,13 @@ class UserController extends MyController
     {
         $model = $this->findModel($id);
         $modelProfile = UserProfile::findOne(['user_id' => $id]);
-        if(Yii::$app->user->can(User::DEV)){
+        if (Yii::$app->user->can(User::DEV)) {
             $model->scenario = UserModel::SCENARIO_DEV;
         }
 
         if ($model->load(Yii::$app->request->post()) && $modelProfile->load(Yii::$app->request->post())) {
             $transaction = Yii::$app->db->beginTransaction(Transaction::SERIALIZABLE);
-            if($model->scenario === UserModel::SCENARIO_DEV && $model->password != null){
+            if ($model->scenario === UserModel::SCENARIO_DEV && $model->password != null) {
                 $model->setPassword($model->password);
             }
             if ($model->validate() && $modelProfile->validate() && $model->save() && $this->saveRole($model) && $modelProfile->save()) {
@@ -266,6 +269,33 @@ class UserController extends MyController
             ]);
         }
         return $this->redirect(['index']);
+    }
+
+    /**
+     * @param $perpage
+     */
+    public function actionPerpage($perpage)
+    {
+        MyComponent::setCookies('pageSize', $perpage);
+    }
+
+    /**
+     * @param $dataProvider
+     * @return float|int
+     */
+    public function getTotalPage($dataProvider)
+    {
+        if (MyComponent::hasCookies('pageSize')) {
+            $dataProvider->pagination->pageSize = MyComponent::getCookies('pageSize');
+        } else {
+            $dataProvider->pagination->pageSize = 10;
+        }
+
+        $pageSize = $dataProvider->pagination->pageSize;
+        $totalCount = $dataProvider->totalCount;
+        $totalPage = (($totalCount + $pageSize - 1) / $pageSize);
+
+        return $totalPage;
     }
 
     /**
