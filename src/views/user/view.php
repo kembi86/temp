@@ -25,15 +25,15 @@ $this->params['breadcrumbs'][] = $this->title;
                         class="ion ion-md-apps"></span></span><?= Html::encode($this->title) ?>
         </h4>
         <p>
-            <a class="btn btn-outline-light" href="<?= Url::to(['create']); ?>"
+            <a class="btn btn-outline-light btn-sm" href="<?= Url::to(['create']); ?>"
                title="<?= AuthModule::t('auth', 'Create'); ?>">
                 <i class="fa fa-plus"></i> <?= AuthModule::t('auth', 'Create'); ?></a>
-            <a class="btn btn-success" href="<?= Url::to(['/auth/user-metadata/update', 'id' => $model->id]); ?>"
+            <a class="btn btn-success btn-sm" href="<?= Url::to(['/auth/user-metadata/update', 'id' => $model->id]); ?>"
                title="<?= AuthModule::t('auth', 'Metadata'); ?>">
                 <i class="glyphicon glyphicon-cog"></i> <?= AuthModule::t('auth', 'Metadata'); ?></a>
-            <?= Html::a(AuthModule::t('auth', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a(AuthModule::t('auth', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-sm']) ?>
             <?= Html::a(AuthModule::t('auth', 'Delete'), ['delete', 'id' => $model->id], [
-                'class' => 'btn btn-danger',
+                'class' => 'btn btn-danger btn-sm',
                 'data' => [
                     'confirm' => AuthModule::t('auth', 'Are you sure you want to delete this item?'),
                     'method' => 'post',
