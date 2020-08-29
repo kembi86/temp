@@ -52,6 +52,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attributes' => [
                         'id',
                         'username',
+                        'auth',
+                        'access_token',
                         'oauth_client',
                         'oauth_client_user_id',
                         'email',
