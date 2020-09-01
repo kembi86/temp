@@ -11,7 +11,7 @@ use modava\auth\AuthModule;
 /* @var $model modava\auth\models\User */
 
 $this->title = $model->userProfile->fullname;
-$this->params['breadcrumbs'][] = ['label' => AuthModule::t('auth', 'Users'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'Users'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -26,16 +26,16 @@ $this->params['breadcrumbs'][] = $this->title;
         </h4>
         <p>
             <a class="btn btn-outline-light btn-sm" href="<?= Url::to(['create']); ?>"
-               title="<?= AuthModule::t('auth', 'Create'); ?>">
-                <i class="fa fa-plus"></i> <?= AuthModule::t('auth', 'Create'); ?></a>
+               title="<?= Yii::t('backend', 'Create'); ?>">
+                <i class="fa fa-plus"></i> <?= Yii::t('backend', 'Create'); ?></a>
             <a class="btn btn-success btn-sm" href="<?= Url::to(['/auth/user-metadata/update', 'id' => $model->id]); ?>"
-               title="<?= AuthModule::t('auth', 'Metadata'); ?>">
-                <i class="glyphicon glyphicon-cog"></i> <?= AuthModule::t('auth', 'Metadata'); ?></a>
-            <?= Html::a(AuthModule::t('auth', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-sm']) ?>
-            <?= Html::a(AuthModule::t('auth', 'Delete'), ['delete', 'id' => $model->id], [
+               title="<?= Yii::t('backend', 'Metadata'); ?>">
+                <i class="glyphicon glyphicon-cog"></i> <?= Yii::t('backend', 'Metadata'); ?></a>
+            <?= Html::a(Yii::t('backend', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-sm']) ?>
+            <?= Html::a(Yii::t('backend', 'Delete'), ['delete', 'id' => $model->id], [
                 'class' => 'btn btn-danger btn-sm',
                 'data' => [
-                    'confirm' => AuthModule::t('auth', 'Are you sure you want to delete this item?'),
+                    'confirm' => Yii::t('backend', 'Are you sure you want to delete this item?'),
                     'method' => 'post',
                 ],
             ]) ?>
@@ -72,7 +72,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 if ($model->userCreated == null) return null;
                                 return $model->userCreated->userProfile->fullname;
                             },
-                            'label' => AuthModule::t('auth', 'Created By')
+                            'label' => Yii::t('backend', 'Created By')
                         ],
                         [
                             'attribute' => 'updated_by',
@@ -80,7 +80,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 if ($model->userUpdated == null) return null;
                                 return $model->userUpdated->userProfile->fullname;
                             },
-                            'label' => AuthModule::t('auth', 'Updated By')
+                            'label' => Yii::t('backend', 'Updated By')
                         ],
                     ],
                 ]) ?>

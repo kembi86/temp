@@ -8,8 +8,8 @@ use modava\auth\AuthModule;
 /* @var $this yii\web\View */
 /* @var $model modava\auth\models\RbacAuthItem */
 
-$this->title = AuthModule::t('auth', 'Create');
-$this->params['breadcrumbs'][] = ['label' => AuthModule::t('auth', 'Rbac Auth Items'), 'url' => ['index']];
+$this->title = Yii::t('backend', 'Create');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'Rbac Auth Items'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="container-fluid px-xxl-25 px-xl-10">

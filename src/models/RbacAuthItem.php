@@ -113,14 +113,14 @@ class RbacAuthItem extends RbacAuthItemTable
 //    public function attributeLabels()
 //    {
 //        return [
-//            'name' => AuthModule::t('auth', 'Name'),
-//            'type' => AuthModule::t('auth', 'Type'),
-//            'description' => AuthModule::t('auth', 'Description'),
-//            'rule_name' => AuthModule::t('auth', 'Rule Name'),
-//            'data' => AuthModule::t('auth', 'Data'),
-//            'created_at' => AuthModule::t('auth', 'Created At'),
-//            'updated_at' => AuthModule::t('auth', 'Updated At'),
-//            'parents' => AuthModule::t('auth', 'Parent'),
+//            'name' => Yii::t('backend', 'Name'),
+//            'type' => Yii::t('backend', 'Type'),
+//            'description' => Yii::t('backend', 'Description'),
+//            'rule_name' => Yii::t('backend', 'Rule Name'),
+//            'data' => Yii::t('backend', 'Data'),
+//            'created_at' => Yii::t('backend', 'Created At'),
+//            'updated_at' => Yii::t('backend', 'Updated At'),
+//            'parents' => Yii::t('backend', 'Parent'),
 //        ];
 //    }
 

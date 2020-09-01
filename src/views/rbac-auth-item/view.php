@@ -11,7 +11,7 @@ use modava\auth\AuthModule;
 /* @var $model modava\auth\models\RbacAuthItem */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => AuthModule::t('auth', 'Rbac Auth Items'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'Rbac Auth Items'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -26,13 +26,13 @@ $this->params['breadcrumbs'][] = $this->title;
         </h4>
         <p>
             <a class="btn btn-outline-light btn-sm" href="<?= Url::to(['create']); ?>"
-               title="<?= AuthModule::t('auth', 'Create'); ?>">
-                <i class="fa fa-plus"></i> <?= AuthModule::t('auth', 'Create'); ?></a>
-            <?= Html::a(AuthModule::t('auth', 'Update'), ['update', 'id' => $model->name], ['class' => 'btn btn-primary btn-sm']) ?>
-            <?= Html::a(AuthModule::t('auth', 'Delete'), ['delete', 'id' => $model->name], [
+               title="<?= Yii::t('backend', 'Create'); ?>">
+                <i class="fa fa-plus"></i> <?= Yii::t('backend', 'Create'); ?></a>
+            <?= Html::a(Yii::t('backend', 'Update'), ['update', 'id' => $model->name], ['class' => 'btn btn-primary btn-sm']) ?>
+            <?= Html::a(Yii::t('backend', 'Delete'), ['delete', 'id' => $model->name], [
                 'class' => 'btn btn-danger btn-sm',
                 'data' => [
-                    'confirm' => AuthModule::t('auth', 'Are you sure you want to delete this item?'),
+                    'confirm' => Yii::t('backend', 'Are you sure you want to delete this item?'),
                     'method' => 'post',
                 ],
             ]) ?>

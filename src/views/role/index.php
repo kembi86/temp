@@ -12,7 +12,7 @@ use yii\widgets\Pjax;
 /* @var $searchModel modava\auth\models\search\RbacAuthItemSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = AuthModule::t('auth', 'Roles');
+$this->title = Yii::t('backend', 'Roles');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <?= ToastrWidget::widget(['key' => 'toastr-' . $searchModel->toastr_key . '-index']) ?>
@@ -65,10 +65,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                             'class' => 'summary pull-right',
                                         ],
                                         'pager' => [
-                                            'firstPageLabel' => AuthModule::t('auth', 'First'),
-                                            'lastPageLabel' => AuthModule::t('auth', 'Last'),
-                                            'prevPageLabel' => AuthModule::t('auth', 'Previous'),
-                                            'nextPageLabel' => AuthModule::t('auth', 'Next'),
+                                            'firstPageLabel' => Yii::t('backend', 'First'),
+                                            'lastPageLabel' => Yii::t('backend', 'Last'),
+                                            'prevPageLabel' => Yii::t('backend', 'Previous'),
+                                            'nextPageLabel' => Yii::t('backend', 'Next'),
                                             'maxButtonCount' => 5,
 
                                             'options' => [
@@ -118,7 +118,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 'class' => \common\grid\EnumColumn::class,
                                                 'attribute' => 'ruleName',
                                                 'filter' => ArrayHelper::map(Yii::$app->getAuthManager()->getRules(), 'name', 'name'),
-                                                'filterInputOptions' => ['class' => 'form-control', 'prompt' => AuthModule::t('auth', 'Select Rule')],
+                                                'filterInputOptions' => ['class' => 'form-control', 'prompt' => Yii::t('backend', 'Select Rule')],
                                                 'headerOptions' => [
                                                     'width' => 60,
                                                     'rowspan' => 2
@@ -134,7 +134,7 @@ $this->params['breadcrumbs'][] = $this->title;
 //                                    'class' => \common\grid\EnumColumn::class,
 //                                    'attribute' => 'rule_name',
 //                                    'filter' => ArrayHelper::map(Yii::$app->getAuthManager()->getRules(), 'name', 'name'),
-//                                    'filterInputOptions' => ['class' => 'form-control', 'prompt' => AuthModule::t('auth', 'Select Rule')],
+//                                    'filterInputOptions' => ['class' => 'form-control', 'prompt' => Yii::t('backend', 'Select Rule')],
 //                                ],
 
                                         ],

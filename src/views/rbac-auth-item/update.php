@@ -8,12 +8,12 @@ use modava\auth\AuthModule;
 /* @var $this yii\web\View */
 /* @var $model modava\auth\models\RbacAuthItem */
 
-$this->title = AuthModule::t('auth', 'Update : {name}', [
+$this->title = Yii::t('backend', 'Update : {name}', [
     'name' => $model->name,
 ]);
-$this->params['breadcrumbs'][] = ['label' => AuthModule::t('auth', 'Rbac Auth Items'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'Rbac Auth Items'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->name]];
-$this->params['breadcrumbs'][] = AuthModule::t('auth', 'Update');
+$this->params['breadcrumbs'][] = Yii::t('backend', 'Update');
 ?>
 <div class="container-fluid px-xxl-25 px-xl-10">
     <?= NavbarWidgets::widget(); ?>
@@ -24,8 +24,8 @@ $this->params['breadcrumbs'][] = AuthModule::t('auth', 'Update');
                         class="ion ion-md-apps"></span></span><?= Html::encode($this->title) ?>
         </h4>
         <a class="btn btn-outline-light" href="<?= Url::to(['create']); ?>"
-           title="<?= AuthModule::t('auth', 'Create'); ?>">
-            <i class="fa fa-plus"></i> <?= AuthModule::t('auth', 'Create'); ?></a>
+           title="<?= Yii::t('backend', 'Create'); ?>">
+            <i class="fa fa-plus"></i> <?= Yii::t('backend', 'Create'); ?></a>
     </div>
     <!-- /Title -->
 

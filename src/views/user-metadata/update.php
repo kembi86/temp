@@ -7,12 +7,12 @@ use modava\auth\AuthModule;
 /* @var $this yii\web\View */
 /* @var $model modava\auth\models\UserMetadata */
 
-$this->title = AuthModule::t('auth', 'Update : {name}', [
+$this->title = Yii::t('backend', 'Update : {name}', [
     'name' => $model->userHasOne->userProfile->fullname,
 ]);
-$this->params['breadcrumbs'][] = ['label' => AuthModule::t('auth', 'Users'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'Users'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->userHasOne->userProfile->fullname, 'url' => ['view', 'id' => $model->user_id]];
-$this->params['breadcrumbs'][] = AuthModule::t('auth', 'Update');
+$this->params['breadcrumbs'][] = Yii::t('backend', 'Update');
 ?>
 <div class="container-fluid px-xxl-25 px-xl-10">
     <?= NavbarWidgets::widget(); ?>

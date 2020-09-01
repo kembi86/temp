@@ -1,6 +1,6 @@
 <?php
 
-$this->title = \modava\auth\AuthModule::t('auth', 'Reset password');
+$this->title = \modava\auth\Yii::t('backend', 'Reset password');
 ?>
 <div class="hk-wrapper">
 
@@ -18,16 +18,16 @@ $this->title = \modava\auth\AuthModule::t('auth', 'Reset password');
                                      alt="brand"/>
                             </a>
                             <form>
-                                <h1 class="display-5 mb-30 text-center"><?= \modava\auth\AuthModule::t('auth', 'Please reset your password'); ?></h1>
+                                <h1 class="display-5 mb-30 text-center"><?= \modava\auth\Yii::t('backend', 'Please reset your password'); ?></h1>
                                 <div class="form-group">
                                     <input class="form-control"
-                                           placeholder="<?= \modava\auth\AuthModule::t('auth', 'New password'); ?>"
+                                           placeholder="<?= \modava\auth\Yii::t('backend', 'New password'); ?>"
                                            type="password">
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group">
                                         <input class="form-control"
-                                               placeholder="<?= \modava\auth\AuthModule::t('auth', 'Re-enter new password'); ?>"
+                                               placeholder="<?= \modava\auth\Yii::t('backend', 'Re-enter new password'); ?>"
                                                type="password">
                                         <div class="input-group-append">
                                             <span class="input-group-text"><span class="feather-icon"><i
@@ -36,9 +36,9 @@ $this->title = \modava\auth\AuthModule::t('auth', 'Reset password');
                                     </div>
                                 </div>
                                 <button class="btn btn-primary btn-block mb-20"
-                                        type="submit"><?= \modava\auth\AuthModule::t('auth', 'Reset password'); ?></button>
+                                        type="submit"><?= \modava\auth\Yii::t('backend', 'Reset password'); ?></button>
                                 <p class="text-right"><a
-                                            href="#"><?= \modava\auth\AuthModule::t('auth', 'Back to login'); ?></a></p>
+                                            href="#"><?= \modava\auth\Yii::t('backend', 'Back to login'); ?></a></p>
                             </form>
                         </div>
                     </div>

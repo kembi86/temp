@@ -34,8 +34,8 @@ use modava\auth\AuthModule;
     <?php // echo $form->field($model, 'updated_at') ?>
 
     <div class="form-group">
-        <?= Html::submitButton(AuthModule::t('auth', 'Search'), ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton(AuthModule::t('auth', 'Reset'), ['class' => 'btn btn-default']) ?>
+        <?= Html::submitButton(Yii::t('backend', 'Search'), ['class' => 'btn btn-primary']) ?>
+        <?= Html::resetButton(Yii::t('backend', 'Reset'), ['class' => 'btn btn-default']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

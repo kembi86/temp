@@ -101,7 +101,7 @@ class UserController extends MyController
                     $modelProfile->user_id = $model->primaryKey;
                     $model->afterSignup($modelProfile->getAttributes());
                     /*if (Yii::$app->commandBus->handle(new SendEmailCommand([
-                        'subject' => AuthModule::t('auth', 'Create Account'),
+                        'subject' => Yii::t('backend', 'Create Account'),
                         'view' => 'createAccount',
                         'to' => $model->email,
                         'params' => [
@@ -313,6 +313,6 @@ class UserController extends MyController
             return $model;
         }
 
-        throw new NotFoundHttpException(AuthModule::t('auth', 'The requested page does not exist.'));
+        throw new NotFoundHttpException(Yii::t('backend', 'The requested page does not exist.'));
     }
 }

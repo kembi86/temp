@@ -9,12 +9,12 @@ use modava\auth\AuthModule;
 /* @var $model modava\auth\models\User */
 /* @var $modelProfile modava\auth\models\UserProfile */
 
-$this->title = AuthModule::t('auth', 'Update : {name}', [
+$this->title = Yii::t('backend', 'Update : {name}', [
     'name' => $model->userProfile->fullname,
 ]);
-$this->params['breadcrumbs'][] = ['label' => AuthModule::t('auth', 'Users'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'Users'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->userProfile->fullname, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = AuthModule::t('auth', 'Update');
+$this->params['breadcrumbs'][] = Yii::t('backend', 'Update');
 ?>
 <div class="container-fluid px-xxl-25 px-xl-10">
     <?= NavbarWidgets::widget(); ?>
@@ -25,8 +25,8 @@ $this->params['breadcrumbs'][] = AuthModule::t('auth', 'Update');
                         class="ion ion-md-apps"></span></span><?= Html::encode($this->title) ?>
         </h4>
         <a class="btn btn-outline-light" href="<?= Url::to(['create']); ?>"
-           title="<?= AuthModule::t('auth', 'Create'); ?>">
-            <i class="fa fa-plus"></i> <?= AuthModule::t('auth', 'Create'); ?></a>
+           title="<?= Yii::t('backend', 'Create'); ?>">
+            <i class="fa fa-plus"></i> <?= Yii::t('backend', 'Create'); ?></a>
     </div>
     <!-- /Title -->
 

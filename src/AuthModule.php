@@ -35,7 +35,7 @@ class AuthModule extends Module implements BootstrapInterface
     public function init()
     {
         // custom initialization code goes here
-        $this->registerTranslations();
+//        $this->registerTranslations();
         parent::init();
         Yii::configure($this, require(__DIR__ . '/config/auth.php'));
 //        $handler = $this->get('errorHandler');
@@ -59,7 +59,7 @@ class AuthModule extends Module implements BootstrapInterface
         });
     }
 
-    public function registerTranslations()
+    /*public function registerTranslations()
     {
         Yii::$app->i18n->translations['auth/messages/*'] = [
             'class' => 'yii\i18n\PhpMessageSource',
@@ -74,6 +74,6 @@ class AuthModule extends Module implements BootstrapInterface
     public static function t($category, $message, $params = [], $language = null)
     {
         return Yii::t('auth/messages/' . $category, $message, $params, $language);
-    }
+    }*/
 
 }

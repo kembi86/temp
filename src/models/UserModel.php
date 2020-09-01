@@ -62,7 +62,7 @@ class UserModel extends User
                 'username',
                 'unique',
                 'targetClass' => '\common\models\User',
-                'message' => AuthModule::t('auth', 'This username has already been taken.'),
+                'message' => Yii::t('backend', 'This username has already been taken.'),
                 'filter' => function ($query) {
                     $query->andWhere(['not', ['id' => $this->getId()]]);
                 },
@@ -77,7 +77,7 @@ class UserModel extends User
                 'email',
                 'unique',
                 'targetClass' => '\common\models\User',
-                'message' => AuthModule::t('auth', 'This email address has already been taken.'),
+                'message' => Yii::t('backend', 'This email address has already been taken.'),
                 'filter' => function ($query) {
                     $query->andWhere(['not', ['id' => $this->getId()]]);
                 },

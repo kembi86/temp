@@ -9,8 +9,8 @@ use modava\auth\AuthModule;
 /* @var $model modava\auth\models\User */
 /* @var $modelProfile \modava\auth\models\UserProfile */
 
-$this->title = AuthModule::t('auth', 'Create');
-$this->params['breadcrumbs'][] = ['label' => AuthModule::t('auth', 'Users'), 'url' => ['index']];
+$this->title = Yii::t('backend', 'Create');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'Users'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="container-fluid px-xxl-25 px-xl-10">

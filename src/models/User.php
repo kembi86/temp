@@ -95,19 +95,19 @@ class User extends ActiveRecord implements IdentityInterface
     public function attributeLabels()
     {
         return [
-            'fullname' => AuthModule::t('auth', 'Full name'),
-            'name' => AuthModule::t('auth', 'Name'),
-            'type' => AuthModule::t('auth', 'Type'),
-            'description' => AuthModule::t('auth', 'Description'),
-            'rule_name' => AuthModule::t('auth', 'Rule Name'),
-            'data' => AuthModule::t('auth', 'Data'),
-            'role' => AuthModule::t('auth', 'Role'),
-            'status' => AuthModule::t('auth', 'Status'),
-            'created_at' => AuthModule::t('auth', 'Created At'),
-            'updated_at' => AuthModule::t('auth', 'Updated At'),
-            'created_by' => AuthModule::t('auth', 'Created By'),
-            'updated_by' => AuthModule::t('auth', 'Updated By'),
-            'parents' => AuthModule::t('auth', 'Parent'),
+            'fullname' => Yii::t('backend', 'Full name'),
+            'name' => Yii::t('backend', 'Name'),
+            'type' => Yii::t('backend', 'Type'),
+            'description' => Yii::t('backend', 'Description'),
+            'rule_name' => Yii::t('backend', 'Rule Name'),
+            'data' => Yii::t('backend', 'Data'),
+            'role' => Yii::t('backend', 'Role'),
+            'status' => Yii::t('backend', 'Status'),
+            'created_at' => Yii::t('backend', 'Created At'),
+            'updated_at' => Yii::t('backend', 'Updated At'),
+            'created_by' => Yii::t('backend', 'Created By'),
+            'updated_by' => Yii::t('backend', 'Updated By'),
+            'parents' => Yii::t('backend', 'Parent'),
         ];
     }
 

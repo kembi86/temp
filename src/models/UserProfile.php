@@ -56,17 +56,17 @@ class UserProfile extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'user_id' => AuthModule::t('auth', 'User ID'),
-            'fullname' => AuthModule::t('auth', 'Họ tên'),
-            'bithday' => AuthModule::t('auth', 'Ngày sinh'),
-            'about' => AuthModule::t('auth', 'About me'),
-            'address' => AuthModule::t('auth', 'Address'),
-            'phone' => AuthModule::t('auth', 'Phone'),
-            'facebook' => AuthModule::t('auth', 'Facebook'),
-            'avatar' => AuthModule::t('auth', 'Avatar'),
-            'cover' => AuthModule::t('auth', 'Cover'),
-            'locale' => AuthModule::t('auth', 'Locale'),
-            'gender' => AuthModule::t('auth', 'Gender'),
+            'user_id' => Yii::t('backend', 'User ID'),
+            'fullname' => Yii::t('backend', 'Họ tên'),
+            'bithday' => Yii::t('backend', 'Ngày sinh'),
+            'about' => Yii::t('backend', 'About me'),
+            'address' => Yii::t('backend', 'Address'),
+            'phone' => Yii::t('backend', 'Phone'),
+            'facebook' => Yii::t('backend', 'Facebook'),
+            'avatar' => Yii::t('backend', 'Avatar'),
+            'cover' => Yii::t('backend', 'Cover'),
+            'locale' => Yii::t('backend', 'Locale'),
+            'gender' => Yii::t('backend', 'Gender'),
         ];
     }
 

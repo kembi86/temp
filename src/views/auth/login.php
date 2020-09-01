@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
 
-$this->title = \modava\auth\AuthModule::t('auth', 'Login');
+$this->title = \modava\auth\Yii::t('backend', 'Login');
 
 ?>
 <div class="hk-wrapper">
@@ -86,15 +86,15 @@ $this->title = \modava\auth\AuthModule::t('auth', 'Login');
                                 ],
                             ]);
                             ?>
-                            <h1 class="display-4 mb-10"><?= \modava\auth\AuthModule::t('auth', 'Welcome Back'); ?>
+                            <h1 class="display-4 mb-10"><?= \modava\auth\Yii::t('backend', 'Welcome Back'); ?>
                                 :)</h1>
-                            <p class="mb-30"><?= \modava\auth\AuthModule::t('auth', 'Sign in to your account and enjoy unlimited perks'); ?></p>
+                            <p class="mb-30"><?= \modava\auth\Yii::t('backend', 'Sign in to your account and enjoy unlimited perks'); ?></p>
                             <div class="form-group">
                                 <?= $form->field($model, 'username')->textInput(['class' => 'form-control', 'autocomplete' => 'off', 'placeHolder' => 'Email'])->label(false) ?>
                             </div>
                             <div class="form-group">
                                 <div class="input-group">
-                                    <?= $form->field($model, 'password')->passwordInput(['class' => 'form-control', 'autocomplete' => 'off', 'placeHolder' => \modava\auth\AuthModule::t('auth', 'Password')])->label(false) ?>
+                                    <?= $form->field($model, 'password')->passwordInput(['class' => 'form-control', 'autocomplete' => 'off', 'placeHolder' => \modava\auth\Yii::t('backend', 'Password')])->label(false) ?>
                                     <div class="input-group-append">
                                                 <span class="input-group-text"><span class="feather-icon"><i
                                                                 data-feather="eye-off"></i></span></span>
@@ -105,7 +105,7 @@ $this->title = \modava\auth\AuthModule::t('auth', 'Login');
                             $checkboxTemplate = '<div class="custom-control custom-checkbox mb-25">
                                     {input}
                                     <label class="custom-control-label font-14" for="same-address">
-                                    ' . \modava\auth\AuthModule::t('auth', 'Keep me logged in') . '
+                                    ' . \modava\auth\Yii::t('backend', 'Keep me logged in') . '
                                         </label>
                                     {error}{hint}</div>';
 
@@ -114,29 +114,29 @@ $this->title = \modava\auth\AuthModule::t('auth', 'Login');
                             ])
                                 ->checkbox(['class' => 'custom-control-input', 'id' => 'same-address', 'checked' => false, 'label' => null]) ?>
                             <button class="btn btn-success btn-block"
-                                    type="submit"><?= \modava\auth\AuthModule::t('auth', 'Login'); ?></button>
+                                    type="submit"><?= \modava\auth\Yii::t('backend', 'Login'); ?></button>
                             <p class="font-14 text-center mt-15">
                                 <a href="<?= Url::toRoute(['/auth/auth/request-password-reset']); ?>">
-                                    <?= \modava\auth\AuthModule::t('auth', 'Having trouble logging in'); ?>?
+                                    <?= \modava\auth\Yii::t('backend', 'Having trouble logging in'); ?>?
                                 </a>
                             </p>
-                            <div class="option-sep"><?= \modava\auth\AuthModule::t('auth', 'or'); ?></div>
+                            <div class="option-sep"><?= \modava\auth\Yii::t('backend', 'or'); ?></div>
                             <div class="form-row">
                                 <div class="col-sm-6 mb-20">
                                     <button class="btn btn-indigo btn-block btn-wth-icon"><span
                                                 class="icon-label"><i class="fa fa-facebook"></i> </span><span
-                                                class="btn-text"><?= \modava\auth\AuthModule::t('auth', 'Login with facebook'); ?></span>
+                                                class="btn-text"><?= \modava\auth\Yii::t('backend', 'Login with facebook'); ?></span>
                                     </button>
                                 </div>
                                 <div class="col-sm-6 mb-20">
                                     <button class="btn btn-primary btn-block btn-wth-icon"><span
                                                 class="icon-label"><i class="fa fa-twitter"></i> </span><span
-                                                class="btn-text"><?= \modava\auth\AuthModule::t('auth', 'Login with Twitter'); ?></span>
+                                                class="btn-text"><?= \modava\auth\Yii::t('backend', 'Login with Twitter'); ?></span>
                                     </button>
                                 </div>
                             </div>
-                            <p class="text-center"><?= \modava\auth\AuthModule::t('auth', 'Do have an account yet'); ?>?
-                                <a href="#"><?= \modava\auth\AuthModule::t('auth', 'Sign Up'); ?></a></p>
+                            <p class="text-center"><?= \modava\auth\Yii::t('backend', 'Do have an account yet'); ?>?
+                                <a href="#"><?= \modava\auth\Yii::t('backend', 'Sign Up'); ?></a></p>
                             <?php ActiveForm::end() ?>
                         </div>
                     </div>

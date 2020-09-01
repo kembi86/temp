@@ -54,7 +54,7 @@ use yii\helpers\ArrayHelper;
         </div>
     </div>
     <div class="form-group">
-        <?= Html::submitButton(AuthModule::t('auth', 'Save'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(Yii::t('backend', 'Save'), ['class' => 'btn btn-success']) ?>
     </div>
     <?php ActiveForm::end(); ?>
 </div>

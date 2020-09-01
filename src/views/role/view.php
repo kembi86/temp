@@ -8,7 +8,7 @@ use yii\helpers\Html;
 
 \modava\auth\assets\RoleAsset::register($this);
 $this->title = $model->description;
-$this->params['breadcrumbs'][] = ['label' => AuthModule::t('auth', 'User'), 'url' => ['user']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'User'), 'url' => ['user']];
 $this->params['breadcrumbs'][] = ['label' => 'Phân Quyền', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
