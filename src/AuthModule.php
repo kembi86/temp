@@ -38,9 +38,9 @@ class AuthModule extends Module implements BootstrapInterface
         $this->registerTranslations();
         parent::init();
         Yii::configure($this, require(__DIR__ . '/config/auth.php'));
-        $handler = $this->get('errorHandler');
-        Yii::$app->set('errorHandler', $handler);
-        $handler->register();
+//        $handler = $this->get('errorHandler');
+//        Yii::$app->set('errorHandler', $handler);
+//        $handler->register();
         $this->layout = 'auth';
         \Yii::$app->assetManager->bundles['yii\web\JqueryAsset'] = [
             'js' => [
