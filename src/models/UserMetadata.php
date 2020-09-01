@@ -2,9 +2,7 @@
 
 namespace modava\auth\models;
 
-use modava\auth\AuthModule;
-use modava\auth\models\form\UserMetadataForm;
-use yii\behaviors\AttributeBehavior;
+use Yii;
 use yii\db\ActiveRecord;
 
 /**

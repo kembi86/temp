@@ -3,9 +3,7 @@
 namespace modava\auth\models\form;
 
 use cheatsheet\Time;
-use modava\auth\AuthModule;
 use modava\auth\models\User;
-//use himiklab\yii2\recaptcha\ReCaptchaValidator2;
 use Yii;
 use yii\base\Model;
 

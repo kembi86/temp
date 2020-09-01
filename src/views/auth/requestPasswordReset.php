@@ -1,5 +1,5 @@
 <?php
 
-$this->title = \modava\auth\AuthModule::t('login', 'Request password reset');
+$this->title = Yii::t('backend', 'Request password reset');
 ?>
 reset
