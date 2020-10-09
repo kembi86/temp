@@ -1,6 +1,11 @@
 <?php
 
 $this->title = Yii::t('backend', 'Reset password');
+$css = <<< CSS
+.brand-img{max-height: 120px;}
+.hk-pg-wrapper.hk-auth-wrapper .auth-form-wrap .auth-form{padding: 25px;background-color: #fff;border-radius: .25rem;}
+CSS;
+$this->registerCss($css);
 ?>
 <div class="hk-wrapper">
 

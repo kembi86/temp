@@ -4,7 +4,10 @@ use yii\widgets\ActiveForm;
 use yii\helpers\Url;
 
 $this->title = Yii::t('backend', 'Login');
-
+$css = <<< CSS
+.hk-pg-wrapper.hk-auth-wrapper > header{width: auto;}
+CSS;
+$this->registerCss($css);
 ?>
 <div class="hk-wrapper">
 

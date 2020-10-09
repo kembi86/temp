@@ -2,12 +2,14 @@
 
 namespace modava\auth\controllers;
 
-use modava\auth\models\form\LoginForm;
+use backend\components\Email;
 use modava\auth\components\MyAuthController;
-use modava\auth\models\User;
+use modava\auth\models\form\LoginForm;
+use modava\auth\models\form\RequestPasswordResetForm;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use yii\web\Response;
 
 
 class AuthController extends MyAuthController
@@ -67,8 +69,32 @@ class AuthController extends MyAuthController
 
     public function actionRequestPasswordReset()
     {
-        return $this->render('requestPasswordReset', [
+        if (!Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
 
+        $model = new RequestPasswordResetForm();
+
+        if (Yii::$app->request->isAjax) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+
+            if (!$model->load(Yii::$app->request->post()) || !$model->validate()) {
+                return [
+                    'code' => 400,
+                    'msg' => 'Thất bại. Vui lòng liên hệ bộ phận kỹ thuật',
+                ];
+            }
+
+            Email::sendEmail($model->email);
+
+            return [
+                'code' => 200,
+                'msg' => 'Thành công. Vui lòng kiểm tra email và làm theo hướng dẫn.',
+            ];
+        }
+
+        return $this->render('requestPasswordReset', [
+            'model' => $model
         ]);
     }
 

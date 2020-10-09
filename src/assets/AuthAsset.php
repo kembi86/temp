@@ -11,6 +11,7 @@ class AuthAsset extends AssetBundle
 {
     public $sourcePath = '@authweb';
     public $css = [
+        'css/my-loading.css',
         'dist/css/style.css',
         'dist/css/auth.css',
     ];
@@ -23,6 +24,7 @@ class AuthAsset extends AssetBundle
         'dist/js/feather.min.js',
         'dist/js/init.js',
         'dist/js/login-data.js',
+        'js/my-loading.js',
     ];
     public $jsOptions = array(
         'position' => \yii\web\View::POS_END
