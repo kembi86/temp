@@ -39,7 +39,7 @@ class UserProfile extends ActiveRecord
             [['gender'], 'in', 'range' => self::GENDER],
             [['fullname', 'address', 'avatar', 'cover'], 'string', 'max' => 255],
             [['facebook'], 'string', 'max' => 50],
-            [['bithday', 'phone'], 'string', 'max' => 25],
+            [['birthday', 'phone'], 'string', 'max' => 25],
             [['about'], 'string'],
             [['avatar', 'cover'], 'string', 'max' => 255],
             ['locale', 'default', 'value' => Yii::$app->language],
@@ -58,7 +58,7 @@ class UserProfile extends ActiveRecord
         return [
             'user_id' => Yii::t('backend', 'User ID'),
             'fullname' => Yii::t('backend', 'Họ tên'),
-            'bithday' => Yii::t('backend', 'Ngày sinh'),
+            'birthday' => Yii::t('backend', 'Ngày sinh'),
             'about' => Yii::t('backend', 'About me'),
             'address' => Yii::t('backend', 'Address'),
             'phone' => Yii::t('backend', 'Phone'),

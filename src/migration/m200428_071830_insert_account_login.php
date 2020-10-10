@@ -27,7 +27,7 @@ class m200428_071830_insert_account_login extends Migration
         $this->insert('user_profile', [
             'user_id' => '1',
             'fullname' => 'Đào Văn Mong',
-            'bithday' => '12/08/1986',
+            'birthday' => '12/08/1986',
             'address' => '466 Cao Thắng, P.12, Q.10, HCM',
             'phone' => '0906904884',
             'gender' => '1',
