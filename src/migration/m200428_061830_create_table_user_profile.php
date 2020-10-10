@@ -21,7 +21,7 @@ class m200428_061830_create_table_user_profile extends Migration
         $this->createTable('{{%user_profile}}', [
             'user_id' => $this->primaryKey(),
             'fullname' => $this->string(255)->notNull(),
-            'bithday' => $this->string(12)->null(),
+            'birthday' => $this->string(12)->null(),
             'about' => $this->text()->null(),
             'address' => $this->string(255)->null(),
             'phone' => $this->string(25)->notNull()->unique(),
