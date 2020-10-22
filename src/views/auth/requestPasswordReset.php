@@ -14,6 +14,7 @@ $this->registerCss($css);
 
         <!-- Main Content -->
         <div class="hk-pg-wrapper hk-auth-wrapper" style="min-height: 947px;">
+            <?php echo \backend\widgets\ToastrWidget::widget(['key' => 'toastr-request-password-reset']); ?>
 
             <div class="container-fluid">
                 <div class="row">
@@ -25,7 +26,14 @@ $this->registerCss($css);
                                          src="<?= Url::to($this->assetManager->publish('@authweb/dist/img/site-logo.png')[1]); ?>"
                                          alt="brand"/>
                                 </a>
-                                <?php $form = ActiveForm::begin(['id' => 'request-password-reset-form', 'options' => ['class' => "form-horizontal", 'novalidate' => true]]); ?>
+                                <?php $form = ActiveForm::begin([
+                                    'id' => 'request-password-reset-form',
+                                    'options' => [
+                                        'class' => "form-horizontal",
+                                        'novalidate' => true,
+                                        'redirect-on-submit' => Url::toRoute(['/auth/login']),
+                                    ]
+                                ]); ?>
                                 <form>
                                     <h1 class="display-5 mb-10 text-center">Need help with your Password?</h1>
                                     <p class="mb-30 text-center">Chúng tôi sẽ gửi mã mới đến <a href="#">email khôi
@@ -77,21 +85,21 @@ $('body').on('submit', 'form#request-password-reset-form', function (e) {
         contentType: false,
         processData: false,
     }).done(function (res) {
-        console.log('reset password res', res);
-        // if (res.code === 200) {
-        //     grecaptcha.reset();
-        //     var redirect_on_submit = $('#request-password-reset-form').attr('redirect-on-submit') || window.location.href;
-        //     setTimeout(function () {
-        //         window.location.href = redirect_on_submit;
-        //     }, 2000);
-        // } else {
-        //     grecaptcha.reset();
-        //     $('.reset-content').myUnloading();
-        // }
+        // console.log('reset password res', res);
+        if (res.code === 200) {
+            grecaptcha.reset();
+            var redirect_on_submit = $('#request-password-reset-form').attr('redirect-on-submit') || window.location.href;
+            setTimeout(function () {
+                window.location.href = redirect_on_submit;
+            }, 2000);
+        } else {
+            grecaptcha.reset();
+            $('.reset-content').myUnloading();
+        }
     }).fail(function (err) {
-        // grecaptcha.reset();
-        // $('.reset-content').myUnloading();
-        // console.log('reset failed', err);
+        grecaptcha.reset();
+        $('.reset-content').myUnloading();
+        console.log('reset failed', err);
     });
     
     return false;

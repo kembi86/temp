@@ -5,8 +5,9 @@ namespace modava\auth\components;
 
 
 use backend\components\MyController;
+use yii\web\Controller;
 
-class MyAuthController extends MyController
+class MyAuthController extends Controller
 {
     public function behaviors()
     {

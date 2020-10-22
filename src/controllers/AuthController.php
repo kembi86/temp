@@ -3,12 +3,17 @@
 namespace modava\auth\controllers;
 
 use backend\components\Email;
+use cheatsheet\Time;
+use common\models\UserToken;
 use modava\auth\components\MyAuthController;
 use modava\auth\models\form\LoginForm;
 use modava\auth\models\form\RequestPasswordResetForm;
+use modava\auth\models\form\ResetPasswordForm;
 use Yii;
+use yii\base\InvalidArgumentException;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use yii\helpers\Url;
 use yii\web\Response;
 
 
@@ -60,10 +65,32 @@ class AuthController extends MyAuthController
         ]);
     }
 
-    public function actionResetPassword()
+    public function actionResetPassword($token = null)
     {
-        return $this->render('resetPassword', [
 
+        try {
+            $model = new ResetPasswordForm($token);
+        } catch (InvalidArgumentException $exception) {
+            return $this->redirect(['/auth/login']);
+        }
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if ($model->resetPassword()) {
+                Yii::$app->session->setFlash('toastr-reset-password', [
+                    'text' => 'Thành công. Vui lòng đăng nhập lại',
+                    'type' => 'success',
+                ]);
+            } else {
+                Yii::$app->session->setFlash('toastr-reset-password', [
+                    'text' => 'Thất bại. Vui lòng liên hệ bộ phận kỹ thuật',
+                    'type' => 'bg-danger',
+                ]);
+            }
+            return $this->refresh();
+        }
+
+        return $this->render('resetPassword', [
+            'model' => $model
         ]);
     }
 
@@ -76,21 +103,26 @@ class AuthController extends MyAuthController
         $model = new RequestPasswordResetForm();
 
         if (Yii::$app->request->isAjax) {
+
             Yii::$app->response->format = Response::FORMAT_JSON;
 
             if (!$model->load(Yii::$app->request->post()) || !$model->validate()) {
-                return [
-                    'code' => 400,
-                    'msg' => 'Thất bại. Vui lòng liên hệ bộ phận kỹ thuật',
-                ];
+                Yii::$app->session->setFlash('toastr-request-password-reset', [
+                    'text' => 'Thất bại. Vui lòng liên hệ bộ phận kỹ thuật',
+                    'type' => 'warning'
+                ]);
+
+                return ['code' => 400,];
             }
 
             Email::sendEmail($model->email);
 
-            return [
-                'code' => 200,
-                'msg' => 'Thành công. Vui lòng kiểm tra email và làm theo hướng dẫn.',
-            ];
+            Yii::$app->session->setFlash('toastr-request-password-reset', [
+                'text' => 'Thành công. Vui lòng kiểm tra email và làm theo hướng dẫn.',
+                'type' => 'success'
+            ]);
+
+            return ['code' => 200,];
         }
 
         return $this->render('requestPasswordReset', [

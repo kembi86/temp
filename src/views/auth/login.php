@@ -8,11 +8,15 @@ $css = <<< CSS
 .hk-pg-wrapper.hk-auth-wrapper > header{width: auto;}
 CSS;
 $this->registerCss($css);
+
 ?>
 <div class="hk-wrapper">
 
     <!-- Main Content -->
     <div class="hk-pg-wrapper hk-auth-wrapper">
+        <?php echo \backend\widgets\ToastrWidget::widget(['key' => 'toastr-request-password-reset']); ?>
+        <?php echo \backend\widgets\ToastrWidget::widget(['key' => 'toastr-reset-password']); ?>
+
         <header class="d-flex justify-content-between align-items-center">
             <a class="d-flex auth-brand" href="#">
                 <img class="brand-img"
