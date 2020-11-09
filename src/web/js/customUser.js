@@ -1,3 +1,36 @@
+function previewImage(preview, src, src_default = null) {
+    if (src == null) src = src_default;
+    if (!preview.is('img')) {
+        var img = preview.children('img');
+        if (img.length <= 0) {
+            preview.html('<img src="" alt="Preview"/>');
+        }
+        if (src != null) {
+            if(!preview.is(':visible')) preview.show();
+        } else preview.hide();
+        preview = preview.children('img');
+    }
+    preview.attr('src', src);
+}
+
+function readURL(input, preview, src_default = null) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            previewImage(preview, e.target.result, src_default);
+            $(input).closest('.upload-zone').addClass('has-image').closest('.modal-body').addClass('change-image');
+        };
+        reader.readAsDataURL(input.files[0]);
+    } else {
+        var img_default = $(input).attr('data-default') || null;
+        previewImage(preview, img_default, src_default);
+        if (img_default == null) {
+            $(input).closest('.upload-zone').removeClass('has-image');
+        }
+        $(input).closest('.modal-body').removeClass('change-image');
+    }
+}
+
 $(function () {
     "use strict";
 

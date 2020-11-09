@@ -3,12 +3,13 @@
 namespace modava\auth\controllers;
 
 use backend\components\Email;
-use cheatsheet\Time;
-use common\models\UserToken;
 use modava\auth\components\MyAuthController;
+use modava\auth\models\form\ChangePassWordForm;
 use modava\auth\models\form\LoginForm;
 use modava\auth\models\form\RequestPasswordResetForm;
 use modava\auth\models\form\ResetPasswordForm;
+use modava\auth\models\UserModel;
+use modava\auth\models\UserProfile;
 use Yii;
 use yii\base\InvalidArgumentException;
 use yii\filters\AccessControl;
@@ -62,6 +63,57 @@ class AuthController extends MyAuthController
 
         return $this->render('login', [
             'model' => $model,
+        ]);
+    }
+
+    public function actionProfile()
+    {
+        $this->layout = 'user';
+
+        $user = new UserModel();
+        $roleUser = $user->getRoleName(Yii::$app->user->id);
+        $model = UserProfile::findOne(Yii::$app->user->id);
+
+        $auth = Yii::$app->authManager;
+        $roleName = $auth->getChildRoles($roleUser);
+
+        return $this->render('profile', [
+            'roleUser' => $roleUser,
+            'roleName' => $roleName,
+            'model' => $model
+        ]);
+    }
+
+    public function actionUpdateProfile()
+    {
+        $this->layout = 'user';
+
+        $user = new UserModel();
+        $roleUser = $user->getRoleName(Yii::$app->user->id);
+        $model = UserProfile::findOne(Yii::$app->user->id);
+
+        $auth = Yii::$app->authManager;
+        $roleName = $auth->getChildRoles($roleUser);
+
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->validate() && $model->save()) {
+                Yii::$app->session->setFlash('toastr-update-profile', [
+                    'text' => Yii::$app->params['update-success'],
+                    'type' => 'success',
+                ]);
+            } else {
+                Yii::$app->session->setFlash('toastr-update-profile', [
+                    'text' => Yii::$app->params['update-warning'],
+                    'type' => 'warning',
+                ]);
+            }
+            return $this->redirect(Url::toRoute(['profile']));
+        }
+
+        return $this->render('update', [
+            'roleUser' => $roleUser,
+            'roleName' => $roleName,
+            'model' => $model
         ]);
     }
 
@@ -127,6 +179,43 @@ class AuthController extends MyAuthController
 
         return $this->render('requestPasswordReset', [
             'model' => $model
+        ]);
+    }
+
+    public function actionChangePassword()
+    {
+        $this->layout = 'user';
+
+        $id = Yii::$app->user->id;
+        $model = new ChangePassWordForm($id);
+
+        $user = new UserModel();
+        $userInfo = UserProfile::findOne(Yii::$app->user->id);
+
+        $auth = Yii::$app->authManager;
+        $roleUser = $user->getRoleName(Yii::$app->user->id);
+        $roleName = $auth->getChildRoles($roleUser);
+
+        if ($model->load(\Yii::$app->request->post()) && $model->validate()) {
+            if ($model->changePassword()) {
+                Yii::$app->session->setFlash('toastr-change-password', [
+                    'text' => Yii::$app->params['change-password-success'],
+                    'type' => 'success',
+                ]);
+            } else {
+                Yii::$app->session->setFlash('toastr-change-password', [
+                    'text' => Yii::$app->params['change-password-error'],
+                    'type' => 'danger',
+                ]);
+            }
+            return $this->refresh();
+        }
+
+        return $this->render('changePassword', [
+            'model' => $model,
+            'userInfo' => $userInfo,
+            'roleUser' => $roleUser,
+            'roleName' => $roleName,
         ]);
     }
 

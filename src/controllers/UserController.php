@@ -4,6 +4,7 @@ namespace modava\auth\controllers;
 
 use backend\components\MyComponent;
 use backend\components\MyController;
+use common\commands\SendEmailCommand;
 use common\helpers\MyHelper;
 use modava\auth\AuthModule;
 use modava\auth\models\search\UserSearch;
@@ -100,7 +101,7 @@ class UserController extends MyController
                     $modelProfile->scenario = UserProfile::SCENARIO_SAVE;
                     $modelProfile->user_id = $model->primaryKey;
                     $model->afterSignup($modelProfile->getAttributes());
-                    /*if (Yii::$app->commandBus->handle(new SendEmailCommand([
+                    if (Yii::$app->commandBus->handle(new SendEmailCommand([
                         'subject' => Yii::t('backend', 'Create Account'),
                         'view' => 'createAccount',
                         'to' => $model->email,
@@ -108,19 +109,19 @@ class UserController extends MyController
                             'user' => $model->username,
                             'pass' => $pass,
                         ]
-                    ]))) {*/
+                    ]))) {
                     Yii::$app->session->setFlash('toastr-' . $model->toastr_key . '-view', [
                         'title' => 'Thông báo',
                         'text' => 'Tạo mới thành công',
                         'type' => 'success'
                     ]);
-                    /*} else {
+                    } else {
                         Yii::$app->session->setFlash('toastr-' . $model->toastr_key . '-view', [
                             'title' => 'Thông báo',
                             'text' => 'Tạo mới thành công, có lỗi khi gửi email',
                             'type' => 'warning'
                         ]);
-                    }*/
+                    }
                     $transaction->commit();
                     return $this->redirect(['view', 'id' => $model->id]);
                 } else {
