@@ -159,8 +159,21 @@ $this->params['breadcrumbs'][] = $this->title;
                                             [
                                                 'class' => 'yii\grid\ActionColumn',
                                                 'header' => Yii::t('backend', 'Actions'),
-                                                'template' => '{metadata} {update} {delete}',
+                                                'template' => '{login-with-user} {metadata} {update} {delete}',
                                                 'buttons' => [
+                                                    'login-with-user' => function ($url, $model) {
+                                                        $user = new User();
+                                                        $roleUser = $user->getRoleName(Yii::$app->user->id);
+                                                        if (in_array($roleUser, [User::DEV])) {
+                                                            $name = $model->userProfile->fullname != null ? $model->userProfile->fullname : $model->username;
+                                                            return Html::a('<i class="fa fa-sign-in" title="Login bằng tài khoản ' . $name . '"></i>', $url, [
+                                                                'class' => 'btn btn-warning btn-login-with-user btn-xs',
+                                                                'data-user' => $name,
+                                                                'data-redirect' => \yii\helpers\Url::toRoute(['/site/index'])
+                                                            ]);
+                                                        }
+                                                        return null;
+                                                    },
                                                     'metadata' => function ($url, $model) {
                                                         return Html::a('<span class="glyphicon glyphicon-cog"></span>', ['/auth/user-metadata/update', 'id' => $model->id], [
                                                             'title' => Yii::t('backend', 'Metadata'),

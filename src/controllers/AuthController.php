@@ -3,11 +3,14 @@
 namespace modava\auth\controllers;
 
 use backend\components\Email;
+use backend\components\MyComponent;
+use cheatsheet\Time;
 use modava\auth\components\MyAuthController;
 use modava\auth\models\form\ChangePassWordForm;
 use modava\auth\models\form\LoginForm;
 use modava\auth\models\form\RequestPasswordResetForm;
 use modava\auth\models\form\ResetPasswordForm;
+use modava\auth\models\User;
 use modava\auth\models\UserModel;
 use modava\auth\models\UserProfile;
 use Yii;
@@ -221,7 +224,16 @@ class AuthController extends MyAuthController
 
     public function actionLogout()
     {
+        $cookie_user_login = MyComponent::getCookies('project-user-login');
+        if ($cookie_user_login !== false) {
+            $cookie_user_login = (int)$cookie_user_login;
+        }
+        $user_login = User::find()->where(['id' => $cookie_user_login, 'status' => User::STATUS_ACTIVE])->one();
         Yii::$app->user->logout();
+        if ($user_login != null) {
+            MyComponent::setCookies('project-user-login', null, time() - 3600);
+            Yii::$app->user->login($user_login, Time::SECONDS_IN_A_MONTH);
+        }
         return $this->goHome();
     }
 }

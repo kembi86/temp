@@ -4,6 +4,7 @@ namespace modava\auth\controllers;
 
 use backend\components\MyComponent;
 use backend\components\MyController;
+use cheatsheet\Time;
 use common\commands\SendEmailCommand;
 use common\helpers\MyHelper;
 use modava\auth\AuthModule;
@@ -110,11 +111,11 @@ class UserController extends MyController
                             'pass' => $pass,
                         ]
                     ]))) {
-                    Yii::$app->session->setFlash('toastr-' . $model->toastr_key . '-view', [
-                        'title' => 'Thông báo',
-                        'text' => 'Tạo mới thành công',
-                        'type' => 'success'
-                    ]);
+                        Yii::$app->session->setFlash('toastr-' . $model->toastr_key . '-view', [
+                            'title' => 'Thông báo',
+                            'text' => 'Tạo mới thành công',
+                            'type' => 'success'
+                        ]);
                     } else {
                         Yii::$app->session->setFlash('toastr-' . $model->toastr_key . '-view', [
                             'title' => 'Thông báo',
@@ -268,6 +269,42 @@ class UserController extends MyController
                 'text' => Html::tag('p', 'Xoá thất bại: ' . $ex->getMessage()),
                 'type' => 'warning'
             ]);
+        }
+        return $this->redirect(['index']);
+    }
+
+    public function actionLoginWithUser($id = null)
+    {
+        Yii::$app->response->format = yii\web\Response::FORMAT_JSON;
+        if (Yii::$app->request->isAjax) {
+            $user = new User();
+            $roleName = $user->getRoleName(Yii::$app->user->id);
+            if (!in_array($roleName, [User::DEV])) {
+                return [
+                    'code' => 403,
+                    'msg' => 'Bạn không có quyền sử dụng chức năng này'
+                ];
+            }
+            $user = User::find()->where(['id' => $id, 'status' => User::STATUS_ACTIVE])->one();
+            if ($user == null) {
+                return [
+                    'code' => 404,
+                    'msg' => 'Người dùng không tồn tại'
+                ];
+            }
+            if (!Yii::$app->authManager->checkAccess($user->id, 'loginToBackend')) {
+                return [
+                    'code' => 400,
+                    'msg' => 'Người dùng không có quyền truy cập backend'
+                ];
+            }
+            MyComponent::setCookies('project-user-login', Yii::$app->user->id);
+            Yii::$app->user->logout();
+            Yii::$app->user->login($user, Time::SECONDS_IN_A_MONTH);
+            return [
+                'code' => 200,
+                'msg' => 'Đăng nhập thành công'
+            ];
         }
         return $this->redirect(['index']);
     }

@@ -6,7 +6,7 @@ function previewImage(preview, src, src_default = null) {
             preview.html('<img src="" alt="Preview"/>');
         }
         if (src != null) {
-            if(!preview.is(':visible')) preview.show();
+            if (!preview.is(':visible')) preview.show();
         } else preview.hide();
         preview = preview.children('img');
     }
@@ -29,6 +29,24 @@ function readURL(input, preview, src_default = null) {
         }
         $(input).closest('.modal-body').removeClass('change-image');
     }
+}
+
+function toast(options = {}) {
+    let defaultOption = {
+        heading: 'Thông báo',
+        text: 'Thành công',
+        position: 'top-right',
+        class: 'jq-toast-success',
+        hideAfter: 3500,
+        stack: 6,
+        showHideTransition: 'fade'
+    };
+
+    if (options.hasOwnProperty('type')) {
+        defaultOption.class = `jq-toast-${options.type}`;
+    }
+
+    $.toast({...defaultOption, ...options});
 }
 
 $(function () {
@@ -83,7 +101,49 @@ $(function () {
         setPopovers();
     }).trigger('load-body');
 
-    $('body').on('change', '.load-data-on-change', function () {
+    $('body').on('click', '.btn-login-with-user', function (e) {
+        e.preventDefault();
+        var data_user = $(this).attr('data-user'),
+            url = $(this).attr('href'),
+            c = confirm('Bạn muốn đăng nhập vào tài khoản ' + data_user + '?'),
+            url_redirect = $(this).attr('data-redirect') || window.location.href;
+        if (c) {
+            $('#dom').myLoading({
+                opacity: true,
+                size: 'lg',
+                msg: 'Đăng nhập vào tài khoản ' + data_user
+            });
+            $.ajax({
+                type: 'GET',
+                url: url,
+                dataType: 'json',
+                data: {}
+            }).done(function (res) {
+                if (res.code === 200) {
+                    toast({
+                        text: res.msg,
+                        type: 'success',
+                        afterHidden: function () {
+                            window.location.href = url_redirect;
+                        }
+                    });
+                } else {
+                    toast({
+                        text: res.msg,
+                        type: 'warning'
+                    });
+                    $('#dom').myUnloading();
+                }
+            }).fail(function (f) {
+                toast({
+                    text: 'Có lỗi xảy ra.',
+                    type: 'danger'
+                });
+                $('#dom').myUnloading();
+            });
+        }
+        return false;
+    }).on('change', '.load-data-on-change', function () {
         var el = $(this),
             url_load_data = el.attr('load-data-url') || null,
             element_load_data = el.attr('load-data-element') || null,
