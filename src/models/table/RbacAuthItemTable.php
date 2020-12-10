@@ -2,13 +2,10 @@
 
 namespace modava\auth\models\table;
 
-use cheatsheet\Time;
+use backend\components\MyModel;
 use dosamigos\arrayquery\ArrayQuery;
-use modava\auth\models\RbacAuthItemChild;
 use modava\auth\models\User;
 use Yii;
-use yii\db\ActiveRecord;
-use yii\rbac\Item;
 
 /**
  * @property string $name
@@ -16,7 +13,7 @@ use yii\rbac\Item;
  * @property string $description
  * @property string $rule_name
  * */
-class RbacAuthItemTable extends \yii\db\ActiveRecord
+class RbacAuthItemTable extends MyModel
 {
     public static function tableName()
     {

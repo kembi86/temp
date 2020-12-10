@@ -2,12 +2,11 @@
 
 namespace modava\auth\models\table;
 
-use cheatsheet\Time;
+use backend\components\MyModel;
 use modava\auth\models\query\UserOtpQuery;
 use Yii;
-use yii\db\ActiveRecord;
 
-class UserOtpTable extends \yii\db\ActiveRecord
+class UserOtpTable extends MyModel
 {
     const STATUS_NOT_ACTIVE = 0; //Mã otp chưa được sử dụng
     const STATUS_ACTIVE = 1; //Mã đã được sử dụng
