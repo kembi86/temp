@@ -2,6 +2,7 @@
 
 namespace modava\auth\models;
 
+use backend\components\MyModel;
 use Yii;
 use yii\db\ActiveRecord;
 
@@ -11,7 +12,7 @@ use yii\db\ActiveRecord;
  * @property integer $user_id
  * @property array $metadata
  */
-class UserMetadata extends ActiveRecord
+class UserMetadata extends MyModel
 {
     public $toastr_key = 'user-metadata';
 

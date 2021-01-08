@@ -2,6 +2,7 @@
 
 namespace modava\auth\models;
 
+use backend\components\MyModel;
 use modava\auth\AuthModule;
 use modava\auth\models\query\UserQuery;
 use Yii;
@@ -28,7 +29,7 @@ use yii\web\IdentityInterface;
  * @property integer $updated_at
  * @property string $password write-only password
  */
-class User extends ActiveRecord implements IdentityInterface
+class User extends MyModel implements IdentityInterface
 {
     const EVENT_AFTER_SIGNUP = 'afterSignup';
     const STATUS_DELETED = 0;

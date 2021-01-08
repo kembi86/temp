@@ -3,6 +3,7 @@
 
 namespace modava\auth\models;
 
+use backend\components\MyModel;
 use modava\auth\AuthModule;
 use modava\auth\models\query\UserTokenQuery;
 use yii\behaviors\TimestampBehavior;
@@ -10,7 +11,7 @@ use yii\db\ActiveRecord;
 use yii\base\InvalidCallException;
 use Yii;
 
-class UserToken extends ActiveRecord
+class UserToken extends MyModel
 {
     const TYPE_ACTIVATION = 'activation';
     const TYPE_PASSWORD_RESET = 'password_reset';

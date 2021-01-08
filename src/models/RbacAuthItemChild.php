@@ -2,9 +2,10 @@
 
 namespace modava\auth\models;
 
+use backend\components\MyModel;
 use yii\db\ActiveRecord;
 
-class RbacAuthItemChild extends ActiveRecord
+class RbacAuthItemChild extends MyModel
 {
     public static function tableName()
     {

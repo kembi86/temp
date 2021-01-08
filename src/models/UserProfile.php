@@ -2,6 +2,7 @@
 
 namespace modava\auth\models;
 
+use backend\components\MyModel;
 use modava\auth\AuthModule;
 use modava\auth\components\MyUpload;
 use Mpdf\Tag\P;
@@ -10,7 +11,7 @@ use yii\db\ActiveRecord;
 use Yii;
 use yii\web\UploadedFile;
 
-class UserProfile extends ActiveRecord
+class UserProfile extends MyModel
 {
     const SCENARIO_SAVE = 'save';
     const GENDER_MALE = 1;
