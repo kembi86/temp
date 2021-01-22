@@ -102,27 +102,11 @@ class UserController extends MyController
                     $modelProfile->scenario = UserProfile::SCENARIO_SAVE;
                     $modelProfile->user_id = $model->primaryKey;
                     $model->afterSignup($modelProfile->getAttributes());
-                    if (Yii::$app->commandBus->handle(new SendEmailCommand([
-                        'subject' => Yii::t('backend', 'Create Account'),
-                        'view' => 'createAccount',
-                        'to' => $model->email,
-                        'params' => [
-                            'user' => $model->username,
-                            'pass' => $pass,
-                        ]
-                    ]))) {
-                        Yii::$app->session->setFlash('toastr-' . $model->toastr_key . '-view', [
-                            'title' => 'Thông báo',
-                            'text' => 'Tạo mới thành công',
-                            'type' => 'success'
-                        ]);
-                    } else {
-                        Yii::$app->session->setFlash('toastr-' . $model->toastr_key . '-view', [
-                            'title' => 'Thông báo',
-                            'text' => 'Tạo mới thành công, có lỗi khi gửi email',
-                            'type' => 'warning'
-                        ]);
-                    }
+                    Yii::$app->session->setFlash('toastr-' . $model->toastr_key . '-view', [
+                        'title' => 'Thông báo',
+                        'text' => 'Tạo mới thành công',
+                        'type' => 'success'
+                    ]);
                     $transaction->commit();
                     return $this->redirect(['view', 'id' => $model->id]);
                 } else {
